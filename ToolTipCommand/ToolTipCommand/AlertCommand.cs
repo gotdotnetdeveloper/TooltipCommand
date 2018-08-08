@@ -10,15 +10,10 @@ namespace ToolTipCommand
 namespace GalaSoft.MvvmLight.CommandWpf
     {
         /// <summary>
-        /// A command whose sole purpose is to relay its functionality to other
-        /// objects by invoking delegates. The default return value for the CanExecute
-        /// method is 'true'.  This class does not allow you to accept command parameters in the
-        /// Execute and CanExecute callback methods.
+        /// Mvvm Команда, наследник ICommand. Единственная цель которой - передать функциональность (ExecuteCommand) другим
+        /// объектам путем вызова делегатов. 
         /// </summary>
-        /// <remarks>If you are using this class in WPF4.5 or above, you need to use the
-        /// GalaSoft.MvvmLight.CommandWpf namespace (instead of GalaSoft.MvvmLight.Command).
-        /// This will enable (or restore) the CommandManager class which handles
-        /// automatic enabling/disabling of controls based on the CanExecute delegate.</remarks>
+        /// CommandManager автоматически  вкл/выкл CanExecute для WPF.
         public class AlertCommand : ObservableObject, ICommand 
         {
             private string _disableReasonTip;
@@ -28,46 +23,45 @@ namespace GalaSoft.MvvmLight.CommandWpf
             private EventHandler _requerySuggestedLocal;
 
             /// <summary>
-            /// Initializes a new instance of the RelayCommand class that
-            /// can always execute.
+            /// Конструктор команды
             /// </summary>
-            /// <param name="execute">The execution logic. IMPORTANT: If the action causes a closure,
-            /// you must set keepTargetAlive to true to avoid side effects. </param>
-            /// <param name="keepTargetAlive">If true, the target of the Action will
-            /// be kept as a hard reference, which might cause a memory leak. You should only set this
-            /// parameter to true if the action is causing a closure. See
+            /// <param name="execute">Если действие вызывает закрытие,
+            /// нужно установить keepTargetAlive в true, чтобы избежать побочных эффектов.</param>
+            /// <param name="keepTargetAlive">Если = true, действия будет
+            /// сохраненна как жесткая ссылка, которая может вызвать утечку памяти. Вы должны установить это
+            /// параметр true, если действие вызывает замыкание
             /// http://galasoft.ch/s/mvvmweakaction. </param>
-            /// <exception cref="T:System.ArgumentNullException">If the execute argument is null.</exception>
+            /// <exception cref="T:System.ArgumentNullException">Эксепшен, если аргументы = null.</exception>
             public AlertCommand(Action execute, bool keepTargetAlive = false)
               : this(execute, (Func<bool>)null, keepTargetAlive)
             {
             }
 
-            /// <summary>Initializes a new instance of the RelayCommand class.</summary>
-            /// <param name="execute">The execution logic. IMPORTANT: If the action causes a closure,
-            /// you must set keepTargetAlive to true to avoid side effects. </param>
-            /// <param name="canExecute">The execution status logic.  IMPORTANT: If the func causes a closure,
-            /// you must set keepTargetAlive to true to avoid side effects. </param>
-            /// <param name="keepTargetAlive">If true, the target of the Action will
-            /// be kept as a hard reference, which might cause a memory leak. You should only set this
-            /// parameter to true if the action is causing a closures. See
+            /// <summary>
+            /// Конструктор команды
+            /// </summary>
+            /// <param name="execute">Если действие вызывает закрытие,
+            /// нужно установить keepTargetAlive в true, чтобы избежать побочных эффектов.</param>
+            /// <param name="keepTargetAlive">Если = true, действия будет
+            /// сохраненна как жесткая ссылка, которая может вызвать утечку памяти. Вы должны установить это
+            /// параметр true, если действие вызывает замыкание
             /// http://galasoft.ch/s/mvvmweakaction. </param>
-            /// <exception cref="T:System.ArgumentNullException">If the execute argument is null.</exception>
+            /// <exception cref="T:System.ArgumentNullException">Эксепшен, если аргументы = null.</exception>
             public AlertCommand(Action execute, Func<bool> canExecute, bool keepTargetAlive = false)
                 : this(execute, canExecute == null ? (Func<CanExecuteInfo, bool>)null : (Func<CanExecuteInfo, bool>)(ctx => canExecute()), keepTargetAlive)
             {
 
             }
-            /// <summary>Initializes a new instance of the RelayCommand class.</summary>
-            /// <param name="execute">The execution logic. IMPORTANT: If the action causes a closure,
-            /// you must set keepTargetAlive to true to avoid side effects. </param>
-            /// <param name="canExecute">The execution status logic.  IMPORTANT: If the func causes a closure,
-            /// you must set keepTargetAlive to true to avoid side effects. </param>
-            /// <param name="keepTargetAlive">If true, the target of the Action will
-            /// be kept as a hard reference, which might cause a memory leak. You should only set this
-            /// parameter to true if the action is causing a closures. See
+            /// <summary>
+            /// Конструктор команды
+            /// </summary>
+            /// <param name="execute">Если действие вызывает закрытие,
+            /// нужно установить keepTargetAlive в true, чтобы избежать побочных эффектов.</param>
+            /// <param name="keepTargetAlive">Если = true, действия будет
+            /// сохраненна как жесткая ссылка, которая может вызвать утечку памяти. Вы должны установить это
+            /// параметр true, если действие вызывает замыкание
             /// http://galasoft.ch/s/mvvmweakaction. </param>
-            /// <exception cref="T:System.ArgumentNullException">If the execute argument is null.</exception>
+            /// <exception cref="T:System.ArgumentNullException">Эксепшен, если аргументы = null.</exception>
             public AlertCommand(Action execute, Func<CanExecuteInfo, bool> canExecute, bool keepTargetAlive = false)
             {
                 if (execute == null)
@@ -79,7 +73,7 @@ namespace GalaSoft.MvvmLight.CommandWpf
             }
 
             /// <summary>
-            /// Occurs when changes occur that affect whether the command should execute.
+            /// Событие, происходит когда CanExecute изменился
             /// </summary>
             public event EventHandler CanExecuteChanged
             {
@@ -114,7 +108,7 @@ namespace GalaSoft.MvvmLight.CommandWpf
             }
 
             /// <summary>
-            /// Raises the <see cref="E:GalaSoft.MvvmLight.CommandWpf.RelayCommand.CanExecuteChanged" /> event.
+            /// Поднять событие CanExecute <see cref="E:GalaSoft.MvvmLight.CommandWpf.RelayCommand.CanExecuteChanged" />.
             /// </summary>
             public void RaiseCanExecuteChanged()
             {
@@ -122,23 +116,24 @@ namespace GalaSoft.MvvmLight.CommandWpf
             }
 
             /// <summary>
-            /// Defines the method that determines whether the command can execute in its current state.
+            /// Определяет метод, который определяет, может ли команда выполняться в текущем состоянии.
             /// </summary>
-            /// <param name="parameter">This parameter will always be ignored.</param>
-            /// <returns>true if this command can be executed; otherwise, false.</returns>
+            /// <param name="parameter">Этот параметр всегда будет игнорироваться.</param>
+            /// <returns>true, если эта команда может быть выполнена; в противном случае - false.</returns>
             public bool CanExecute(object parameter)
             {
                 bool flag = false;
 
-                if (this._canExecute == null)
-                    return true;
-
-                if (this._canExecute.IsStatic || this._canExecute.IsAlive)
-                    flag = this._canExecute.Execute();
-
                 try
                 {
                     CanExecuteInfo canExecuteInfo = new CanExecuteInfo((ICommand)this);
+                    if (this._canExecute == null)
+                    return true;
+
+                if (this._canExecute.IsStatic || this._canExecute.IsAlive)
+                    flag = this._canExecute.Execute(canExecuteInfo);
+
+                 
                     if (flag)
                     {
                         this.DisableReason = DisableReason.None;
@@ -189,8 +184,6 @@ namespace GalaSoft.MvvmLight.CommandWpf
             }
 
             /// <summary>Обработчик ошибки, возникшей в CanExecute()</summary>
-            /// <param name="e"></param>
-            /// <returns></returns>
             protected bool OnCanExecuteException(Exception e)
             {
                 this.DisableReason = DisableReason.Error;
@@ -199,9 +192,8 @@ namespace GalaSoft.MvvmLight.CommandWpf
             }
 
             /// <summary>
-            /// Defines the method to be called when the command is invoked.
+            /// Определяет метод, который вызывается при вызове команды.
             /// </summary>
-            /// <param name="parameter">This parameter will always be ignored.</param>
             public virtual void Execute(object parameter)
             {
                 if (!this.CanExecute(parameter) || this._execute == null || !this._execute.IsStatic && !this._execute.IsAlive)

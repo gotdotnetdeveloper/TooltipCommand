@@ -12,7 +12,54 @@
         <wpfApp:FirstViewModel />
     </UserControl.DataContext>
 
+
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <Style x:Key="DisableReasonButtonContentStyle" TargetType="ContentControl">
+                <Setter Property="Margin" Value="0"/>
+                <Setter Property="IsTabStop" Value="False"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ContentControl">
+                            <Grid ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000">
+                                <Grid.ToolTip>
+                                    <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                                        <!-- DisableReasonToolTipStyle -->
+                                        <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}" />
+                                        <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                        <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}"/>
+                                        <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}"/>
+                                        <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                                    </MultiBinding>
+                                </Grid.ToolTip>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <ContentPresenter Content="{TemplateBinding Content}" Grid.Column="0" HorizontalAlignment="Center" />
+                                <Image Name="PART_DisableReason" Grid.Column="1"
+                                       MaxHeight="14" MaxWidth="14" ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000"
+                                    Margin="3,0,0,0">
+                                    <Image.Source>
+                                        <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                        <Binding Converter="{StaticResource disableMarkImageConverter}"
+                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=Button}"
+                                     Path="Command.DisableReason" />
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid>
+        <!--Style="{StaticResource DisableReasonButtonContentStyle}"-->
         <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Center">
             <TextBox Height="20" Text="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
             <Button Height="20" Command="{Binding SaveEmployeesCommand}">SaveEmployeesCommand</Button>

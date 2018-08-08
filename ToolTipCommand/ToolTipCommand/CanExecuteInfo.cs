@@ -10,7 +10,7 @@ namespace ToolTipCommand
     /// <summary>Контекст команды для CanExecute</summary>
     public class CanExecuteInfo
     {
-        private static readonly CanExecuteInfo _empty = new CanExecuteInfo((ICommand)null);
+       // private static readonly CanExecuteInfo _empty = new CanExecuteInfo((ICommand)null);
         private readonly ICommand _command;
         private DisableReason _disableReason;
 
@@ -19,14 +19,14 @@ namespace ToolTipCommand
             this._command = command;
         }
 
-        /// <summary>Empty CanExecuteInfo for Fake calls</summary>
-        public static CanExecuteInfo Empty
-        {
-            get
-            {
-                return CanExecuteInfo._empty;
-            }
-        }
+        ///// <summary>Empty CanExecuteInfo for Fake calls</summary>
+        //public static CanExecuteInfo Empty
+        //{
+        //    get
+        //    {
+        //        return CanExecuteInfo._empty;
+        //    }
+        //}
 
         /// <summary>Сообщение</summary>
         public string DisableReasonTip { get; set; }
@@ -55,7 +55,7 @@ namespace ToolTipCommand
             }
         }
 
-        /// <summary>Задает информацию о причине недоступности команды</summary>
+        /// <summary>Команда резрешена, если выполняется условие condition</summary>
         /// <param name="condition">Условие</param>
         /// <param name="disableReason">Тип причины</param>
         /// <param name="disableReasonTip">Сообщение</param>
@@ -70,7 +70,7 @@ namespace ToolTipCommand
             return condition;
         }
 
-        /// <summary>Устанавливает причину - бизнес правило</summary>
+        /// <summary>Команда резрешена, если выполняется условие condition</summary>
         /// <param name="condition">Условие</param>
         /// <param name="disableReasonTip">Сообщение</param>
         /// <returns></returns>
@@ -79,16 +79,15 @@ namespace ToolTipCommand
             return this.EnableIf(condition, DisableReason.BusinessRule, disableReasonTip);
         }
 
-        /// <summary>Бизнес правило</summary>
-        /// <param name="disableReasonTip"></param>
-        /// <returns>всегда false</returns>
+        /// <summary>Блокировать команду  </summary>
+        /// <param name="disableReasonTip">Текстовая причина</param>
         public bool Disable(string disableReasonTip)
         {
             return this.Disable(DisableReason.BusinessRule, disableReasonTip);
         }
 
         /// <summary>
-        /// 
+        /// Блокировать команду   
         /// </summary>
         /// <param name="disableReason">Тип причины</param>
         /// <param name="disableReasonTip"></param>
