@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp", "WpfApp\WpfApp.csproj", "{CEA90C0A-3AB4-46DD-ADAA-ADFDEAE3728B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ToolTipCommand", "ToolTipCommand\ToolTipCommand.csproj", "{AD837FB3-3B7C-4A90-A4F3-93A68E818712}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CEA90C0A-3AB4-46DD-ADAA-ADFDEAE3728B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CEA90C0A-3AB4-46DD-ADAA-ADFDEAE3728B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CEA90C0A-3AB4-46DD-ADAA-ADFDEAE3728B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CEA90C0A-3AB4-46DD-ADAA-ADFDEAE3728B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD837FB3-3B7C-4A90-A4F3-93A68E818712}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD837FB3-3B7C-4A90-A4F3-93A68E818712}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD837FB3-3B7C-4A90-A4F3-93A68E818712}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD837FB3-3B7C-4A90-A4F3-93A68E818712}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {170FE2F6-4D4A-4F5C-9442-3DE17B960DDA}
+	EndGlobalSection
+EndGlobal
