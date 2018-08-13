@@ -1,8 +1,6 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Messaging;
 using ToolTipCommand;
-using ToolTipCommand.GalaSoft.MvvmLight.CommandWpf;
 
 namespace WpfApp
 {
@@ -12,28 +10,19 @@ namespace WpfApp
 
         public FirstViewModel()
         {
-            SaveEmployeesCommand = new ViewModelCommand(SaveEmployeesMethod, CanExecuteSaveEmployeesMethod);
+            SaveEmployeesCommand = new ViewModelCommand<string>(SaveEmployeesMethod, CanExecuteSaveEmployeesMethod);
         }
 
-        private bool CanExecuteSaveEmployeesMethod(CanExecuteInfo arg)
+        private bool CanExecuteSaveEmployeesMethod(CanExecuteInfo info, string obj)
         {
             return true;
         }
 
+        private void SaveEmployeesMethod(string obj)
+        {
+            
+        }
 
-        //private bool CanExecuteSaveEmployeesMethod(CanExecuteInfo arg)
-        //{
-        //    if (Test!= null && Test.Length > 1)
-        //    {
-        //        arg.DisableReason = DisableReason.Error;
-        //        arg.DisableReasonTip = "Error";
-        //        return false;
-        //    }
-        //    else
-        //    {
-        //        return true;
-        //    }
-        //}
 
         public ICommand SaveEmployeesCommand { get; private set; }
 
@@ -48,10 +37,10 @@ namespace WpfApp
             } }
 
 
-        public void SaveEmployeesMethod()
-        {
-            Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Employees Saved."));
-        }
+        //public void SaveEmployeesMethod()
+        //{
+        //    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Employees Saved."));
+        //}
 
         private void LoadEmployeesMethod()
         {

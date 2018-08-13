@@ -104,15 +104,7 @@ namespace ToolTipCommand
         /// <returns>The result of the Func stored as reference.</returns>
         public TResult Execute(T parameter)
         {
-            if (this._staticFunc != null)
-                return this._staticFunc(default(TCanExecuteInfo), parameter);
-            object funcTarget = this.FuncTarget;
-            if (!this.IsAlive || this.Method == null || this.LiveReference == null && this.FuncReference == null || funcTarget == null)
-                return default(TResult);
-            return (TResult)this.Method.Invoke(funcTarget, new object[1]
-            {
-        (object) parameter
-            });
+            return this.Execute(default(TCanExecuteInfo), default(T));
         }
 
         public TResult Execute(TCanExecuteInfo canExecuteInfo, T parameter)
@@ -122,9 +114,9 @@ namespace ToolTipCommand
             object funcTarget = this.FuncTarget;
             if (!this.IsAlive || this.Method == null || this.LiveReference == null && this.FuncReference == null || funcTarget == null)
                 return default(TResult);
-            return (TResult)this.Method.Invoke(funcTarget, new object[1]
+            return (TResult)this.Method.Invoke(funcTarget, new object[2]
             {
-                (object) parameter
+                canExecuteInfo,  parameter
             });
         }
 
