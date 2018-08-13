@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Messaging;
 using ToolTipCommand;
@@ -18,22 +12,28 @@ namespace WpfApp
 
         public FirstViewModel()
         {
-            SaveEmployeesCommand = new AlertCommand(SaveEmployeesMethod, CanExecuteSaveEmployeesMethod);
+            SaveEmployeesCommand = new ViewModelCommand(SaveEmployeesMethod, CanExecuteSaveEmployeesMethod);
         }
 
         private bool CanExecuteSaveEmployeesMethod(CanExecuteInfo arg)
         {
-            if (Test!= null && Test.Length > 1)
-            {
-                arg.DisableReason = DisableReason.Error;
-                arg.DisableReasonTip = "Error";
-                return false;
-            }
-            else
-            {
-                return true;
-            }
+            return true;
         }
+
+
+        //private bool CanExecuteSaveEmployeesMethod(CanExecuteInfo arg)
+        //{
+        //    if (Test!= null && Test.Length > 1)
+        //    {
+        //        arg.DisableReason = DisableReason.Error;
+        //        arg.DisableReasonTip = "Error";
+        //        return false;
+        //    }
+        //    else
+        //    {
+        //        return true;
+        //    }
+        //}
 
         public ICommand SaveEmployeesCommand { get; private set; }
 

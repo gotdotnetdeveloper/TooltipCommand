@@ -14,12 +14,13 @@ namespace GalaSoft.MvvmLight.CommandWpf
         /// объектам путем вызова делегатов. 
         /// </summary>
         /// CommandManager автоматически  вкл/выкл CanExecute для WPF.
-        public class AlertCommand : ObservableObject, ICommand 
+        public class ViewModelCommand : ObservableObject, ICommand 
         {
             private string _disableReasonTip;
             private DisableReason _disableReason;
             private readonly WeakAction _execute;
-            private readonly WeakFunc<CanExecuteInfo, bool> _canExecute;
+            //private readonly WeakFunc<CanExecuteInfo, bool> _canExecute;
+            private readonly WeakFuncInfo<CanExecuteInfo, bool> _canExecute;
             private EventHandler _requerySuggestedLocal;
 
             /// <summary>
@@ -32,7 +33,7 @@ namespace GalaSoft.MvvmLight.CommandWpf
             /// параметр true, если действие вызывает замыкание
             /// http://galasoft.ch/s/mvvmweakaction. </param>
             /// <exception cref="T:System.ArgumentNullException">Эксепшен, если аргументы = null.</exception>
-            public AlertCommand(Action execute, bool keepTargetAlive = false)
+            public ViewModelCommand(Action execute, bool keepTargetAlive = false)
               : this(execute, (Func<bool>)null, keepTargetAlive)
             {
             }
@@ -47,33 +48,34 @@ namespace GalaSoft.MvvmLight.CommandWpf
             /// параметр true, если действие вызывает замыкание
             /// http://galasoft.ch/s/mvvmweakaction. </param>
             /// <exception cref="T:System.ArgumentNullException">Эксепшен, если аргументы = null.</exception>
-            public AlertCommand(Action execute, Func<bool> canExecute, bool keepTargetAlive = false)
+            public ViewModelCommand(Action execute, Func<bool> canExecute, bool keepTargetAlive = false)
                 : this(execute, canExecute == null ? (Func<CanExecuteInfo, bool>)null : (Func<CanExecuteInfo, bool>)(ctx => canExecute()), keepTargetAlive)
             {
 
             }
+
             /// <summary>
             /// Конструктор команды
             /// </summary>
             /// <param name="execute">Если действие вызывает закрытие,
             /// нужно установить keepTargetAlive в true, чтобы избежать побочных эффектов.</param>
+            /// <param name="canExecute">Можно ли выполнить команду</param>
             /// <param name="keepTargetAlive">Если = true, действия будет
             /// сохраненна как жесткая ссылка, которая может вызвать утечку памяти. Вы должны установить это
-            /// параметр true, если действие вызывает замыкание
-            /// http://galasoft.ch/s/mvvmweakaction. </param>
+            /// параметр true, если действие вызывает замыкание  http://galasoft.ch/s/mvvmweakaction. </param>
             /// <exception cref="T:System.ArgumentNullException">Эксепшен, если аргументы = null.</exception>
-            public AlertCommand(Action execute, Func<CanExecuteInfo, bool> canExecute, bool keepTargetAlive = false)
+            public ViewModelCommand(Action execute, Func<CanExecuteInfo, bool> canExecute, bool keepTargetAlive = false)
             {
                 if (execute == null)
                     throw new ArgumentNullException(nameof(execute));
                 this._execute = new WeakAction(execute, keepTargetAlive);
                 if (canExecute == null)
                     return;
-                this._canExecute = new WeakFunc<CanExecuteInfo, bool>(canExecute, keepTargetAlive);
+                this._canExecute = new WeakFuncInfo<CanExecuteInfo, bool>(canExecute, keepTargetAlive);
             }
 
             /// <summary>
-            /// Событие, происходит когда CanExecute изменился
+            /// Событие, происходит когда CanExecute изменился.
             /// </summary>
             public event EventHandler CanExecuteChanged
             {
@@ -108,7 +110,7 @@ namespace GalaSoft.MvvmLight.CommandWpf
             }
 
             /// <summary>
-            /// Поднять событие CanExecute <see cref="E:GalaSoft.MvvmLight.CommandWpf.RelayCommand.CanExecuteChanged" />.
+            /// Поднять событие CanExecute.
             /// </summary>
             public void RaiseCanExecuteChanged()
             {
@@ -131,7 +133,7 @@ namespace GalaSoft.MvvmLight.CommandWpf
                     return true;
 
                 if (this._canExecute.IsStatic || this._canExecute.IsAlive)
-                    flag = this._canExecute.Execute(canExecuteInfo);
+                    flag = this._canExecute.Execute(canExecuteInfo );
 
                  
                     if (flag)

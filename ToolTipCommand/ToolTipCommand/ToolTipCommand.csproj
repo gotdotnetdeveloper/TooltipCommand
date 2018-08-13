@@ -56,10 +56,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AlertCommand.cs" />
+    <Compile Include="TWeakFuncInfo.cs" />
+    <Compile Include="ViewModelCommand.cs" />
     <Compile Include="CanExecuteInfo.cs" />
     <Compile Include="DisableReason.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TViewModelCommand.cs" />
+    <Compile Include="WeakFuncInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
