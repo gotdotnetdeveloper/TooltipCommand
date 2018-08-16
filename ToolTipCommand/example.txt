@@ -1,0 +1,38 @@
+ <Style x:Key="DisableReasonButtonContentStyle" TargetType="ContentControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000">
+                        <Grid.ToolTip>
+                            <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                                <!-- DisableReasonToolTipStyle -->
+                                <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}" />
+                                <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}"/>
+                                <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}"/>
+                                <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            </MultiBinding>
+                        </Grid.ToolTip>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{TemplateBinding Content}" Grid.Column="0" HorizontalAlignment="Center" />
+                        <Image Name="PART_DisableReason" Grid.Column="1"
+                           Style="{StaticResource Image_DisableReason}"
+                           Margin="3,0,0,0">
+                            <Image.Source>
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <Binding Converter="{StaticResource disableMarkImageConverter}"
+                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=Button}"
+                                     Path="Command.DisableReason" />
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>

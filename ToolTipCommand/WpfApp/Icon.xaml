@@ -1,0 +1,195 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <LinearGradientBrush x:Key="SmallRedAttentionBorder" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#FFC25757" Offset="0"/>
+        <GradientStop Color="#FF813535" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SmallRedAttentionBackground" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#FFE46E6E" Offset="0"/>
+        <GradientStop Color="#FFAF4747" Offset="1"/>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SmallRedAttentionBackground1" StartPoint="0.5,0" EndPoint="0.5,1">
+        <GradientStop Color="#FFE46E6E" Offset="0"/>
+        <GradientStop Color="#FFAF4747" Offset="1"/>
+    </LinearGradientBrush>
+
+
+    <DrawingImage x:Key="SmallRedStop">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Transform>
+                    <MatrixTransform Matrix="1,0,0,1,1,1"/>
+                </DrawingGroup.Transform>
+                <GeometryDrawing Brush="{StaticResource SmallRedAttentionBorder}" Geometry="M6.9999999,14 C3.14,14 2.336502E-08,10.86 2.336502E-08,7 2.336502E-08,3.14 3.14,0 6.9999999,0 10.86,0 14,3.14 14,7 14,10.86 10.86,14 6.9999999,14"/>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,1,1"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="{StaticResource SmallRedAttentionBackground}"  Geometry="M0,5.999 C0,9.313 2.686,11.999 5.999,11.999 L5.999,11.999 C9.314,11.999 12,9.313 12,5.999 L12,5.999 C12,2.6860001 9.314,7.2479247E-08 5.999,7.2479247E-08 L5.999,7.2479247E-08 C2.686,7.2479247E-08 0,2.6860001 0,5.999"/>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,1,1"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="{StaticResource SmallRedAttentionBackground1}"  Geometry="M0.3086749,4.1009999 C0.089683454,4.7599999 -0.0093126799,5.4309999 0.00068692958,6.0879999 L0.00068692958,6.0879999 C2.3265961,4.2909999 5.7834611,3.708 9.1493297,4.8329999 L9.1493297,4.8329999 C10.198289,5.1819999 11.151251,5.6709999 11.993219,6.2619999 L11.993219,6.2619999 C12.108214,3.654 10.499277,1.18 7.9013784,0.311 L7.9013784,0.311 C7.270403,0.101 6.6294281,0.00099999999 5.9994527,0 L5.9994527,0 C3.4885507,0 1.1486421,1.588 0.3086749,4.1009999"/>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,3.001,6"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="White" Geometry="M0,2 L8,2 8,0 0,0 z"/>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+
+
+    <DrawingImage x:Key="SmallLock">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <DrawingGroup.Transform>
+                    <MatrixTransform Matrix="1,0,0,1,3,1"/>
+                </DrawingGroup.Transform>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,0,4.964"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="#FFD68618" Geometry="M10,7.0280004 C10,8.1330004 9.1,9.0360004 8,9.0360004 L2,9.0360004 C0.9,9.0360004 0,8.1330004 0,7.0280004 L0,1.6720002 C0,0.5680002 0.9,1.8234253E-07 2,1.8234253E-07 L8,1.8234253E-07 C9.1,1.8234253E-07 10,0.5680002 10,1.6720002 z"/>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,1,5.357"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Geometry="M1.34,1.2588501E-07 C0.60099998,1.2588501E-07 0,0.65500013 0,1.4580001 L0,1.4580001 0,6.3180002 C0,7.1230002 0.60099998,7.7770002 1.34,7.7770002 L1.34,7.7770002 6.6969998,7.7770002 C7.4339998,7.7770002 8.0359997,7.1230002 8.0359997,6.3180002 L8.0359997,6.3180002 8.0359997,1.4580001 C8.0359997,0.65500013 7.4339998,1.2588501E-07 6.6969998,1.2588501E-07 L6.6969998,1.2588501E-07 z">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush EndPoint="1.148,0.5" StartPoint="0.148,0.5">
+                                <GradientStop Color="#FFFDD509" Offset="0"/>
+                                <GradientStop Color="#FFFBC50F" Offset="0.40744000673294067"/>
+                                <GradientStop Color="#FFFBB215" Offset="1"/>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,1.001,6.373"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="#FFFAF490" Geometry="M1.38,6.7610004 L5.1160002,6.8160004 C5.0620002,6.7960004 2.1690001,6.3360004 2.1030001,6.3140004 0.80699998,5.8570003 1.012,5.4350003 0.98099999,4.7480003 0.95099999,4.0980002 0.91399999,1.7950001 1.01,1.44 1.106,1.084 1.276,0.52499996 1.276,0.52499996 L0.070999938,-7.5531011E-08 C0.028999935,0.13899993 -6.6375736E-08,0.28699995 -6.6375736E-08,0.44199996 L-6.6375736E-08,5.3030003 C-6.6375736E-08,6.1070004 0.61899997,6.7610004 1.38,6.7610004"/>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,0,5.006"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="#FFD68618" Geometry="M1.994,2.7465819E-08 C0.92799997,2.7465819E-08 0.055999933,0.67199998 -6.9427494E-08,1.5089999 0.055999933,2.3449999 0.92799997,3.0169998 1.994,3.0169998 L8.0070003,3.0169998 C9.0730004,3.0169998 9.9440004,2.3449999 10,1.5089999 9.9440004,0.67199998 9.0730004,2.7465819E-08 8.0070003,2.7465819E-08 z"/>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,0.921,5.645"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Geometry="M1.073,1.907348E-08 C0.277,1.907348E-08 0.041999996,0.31599991 -3.8146974E-09,0.68799979 L-3.8146974E-09,0.68799979 C0.041999996,1.0919997 0.277,1.4079995 1.073,1.4079995 L1.073,1.4079995 7.085,1.4079995 C7.882,1.4079995 8.129,1.0919997 8.171,0.72099978 L8.171,0.72099978 C8.129,0.31599991 7.882,1.907348E-08 7.085,1.907348E-08 L7.085,1.907348E-08 z">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush EndPoint="0.911,0.909" StartPoint="-0.073,-0.069">
+                                <GradientStop Color="#FFFDE7B6" Offset="0"/>
+                                <GradientStop Color="#FFFBB215" Offset="1"/>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,0.622,8.505"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="#FFD68618" Geometry="M7.3529998,1.0439999 L1.1819999,1.0439999 C0.49199988,1.0439999 0.19299988,0.74999998 -1.1482239E-07,1.5716549E-07 0.17999988,1.1179999 0.62599987,1.7179997 1.5049999,1.7179997 L7.0299998,1.7179997 C7.8899998,1.7179997 8.4009997,1.3239998 8.5999997,0.2410001 8.3999997,0.93099993 8.0339998,1.0439999 7.3529998,1.0439999"/>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,0.622,10.484"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Brush="#FFD68618" Geometry="M7.3529998,1.0439998 L1.1819999,1.0439998 C0.49199988,1.0439998 0.19299988,0.74999989 -1.1482239E-07,6.5612777E-08 0.17999988,1.1179998 0.62599987,1.7179997 1.5049999,1.7179997 L7.0299998,1.7179997 C7.8899998,1.7179997 8.4009997,1.3239997 8.5999997,0.24100001 8.3999997,0.93099984 8.0339998,1.0439998 7.3529998,1.0439998"/>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,2,0"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Geometry="M0,3 L0,6.0260001 C0,6.5360001 0.429,6.8300001 0.83,6.8300001 L0.83,6.8300001 C0.839,6.8300001 0.848,6.8250001 0.857,6.8240001 L0.857,6.8240001 0.857,3 C0.857,1.817 1.817,0.85700001 3,0.85700001 L3,0.85700001 C4.184,0.85700001 5.143,1.817 5.143,3 L5.143,3 5.143,6.8300001 C5.563,6.8240001 6,6.5510001 6,6.0000001 L6,6.0000001 6,3 C6,1.346 4.653,0 3,0 L3,0 C1.346,0 0,1.346 0,3">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FF81A6C0" Offset="0"/>
+                                <GradientStop Color="#FF2C6180" Offset="1"/>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+                <DrawingGroup>
+                    <DrawingGroup.Transform>
+                        <MatrixTransform Matrix="1,0,0,1,2.857,0.857"/>
+                    </DrawingGroup.Transform>
+                    <GeometryDrawing Geometry="M1.2588502E-07,2.1429999 L1.2588502E-07,5.9669998 C0.39600015,5.9529998 0.85700017,5.6129998 0.85700017,5.0889998 L0.85700017,5.0889998 0.85700017,2.1429999 C0.85700017,1.434 1.4340002,0.85699998 2.1430002,0.85699998 L2.1430002,0.85699998 C2.8520003,0.85699998 3.4280003,1.434 3.4280003,2.1429999 L3.4280003,2.1429999 3.4280003,5.3369998 C3.5260003,5.7779998 3.8920003,5.9759998 4.2590003,5.9759998 L4.2590003,5.9759998 C4.2690004,5.9759998 4.2770004,5.9729998 4.2860004,5.9729998 L4.2860004,5.9729998 4.2860004,2.1429999 C4.2860004,0.95999998 3.3270003,6.67572E-09 2.1430002,6.67572E-09 L2.1430002,6.67572E-09 C0.96000018,6.67572E-09 1.2588502E-07,0.95999998 1.2588502E-07,2.1429999">
+                        <GeometryDrawing.Brush>
+                            <LinearGradientBrush EndPoint="1,0.5" StartPoint="0,0.5">
+                                <GradientStop Color="#FF2C6180" Offset="0"/>
+                                <GradientStop Color="#FF81A6C0" Offset="1"/>
+                            </LinearGradientBrush>
+                        </GeometryDrawing.Brush>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+
+    <LinearGradientBrush x:Key="SmallError_XMLID_4_" StartPoint="-245,455" EndPoint="-243,455">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFFA5F" Offset="0"/>
+                <GradientStop Color="#9F3300" Offset="1"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+            <MatrixTransform Matrix="56.9977 90.4964 90.4964 -56.9977 -27343.9609 47971.0547"/>
+        </LinearGradientBrush.Transform>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SmallError_XMLID_5_" MappingMode="Absolute" StartPoint="-247,458" EndPoint="-245,458">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFFA5F" Offset="0"/>
+                <GradientStop Color="#9F3300" Offset="1"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+            <MatrixTransform Matrix="68.2284 33.0019 33.0019 -68.2284 1613.9791 39385.6641"/>
+        </LinearGradientBrush.Transform>
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="SmallError_XMLID_6_" MappingMode="Absolute" StartPoint="-247,458" EndPoint="-245,458">
+        <LinearGradientBrush.GradientStops>
+            <GradientStopCollection>
+                <GradientStop Color="#FFFA5F" Offset="0"/>
+                <GradientStop Color="#9F3300" Offset="1"/>
+            </GradientStopCollection>
+        </LinearGradientBrush.GradientStops>
+        <LinearGradientBrush.Transform>
+            <MatrixTransform Matrix="68.2241 32.9998 32.9998 -68.2241 1604.682 39402.625"/>
+        </LinearGradientBrush.Transform>
+    </LinearGradientBrush>
+
+    <DrawingImage x:Key="SmallError">
+        <DrawingImage.Drawing>
+            <DrawingGroup>
+                <GeometryDrawing Brush="{StaticResource SmallError_XMLID_4_}" Geometry="M51.333 8.834C34.985 37.343 18.638 65.854 2.289 94.363   c-7.081 12.352 3.352 26.285 16.453 26.285c6.708 0 13.418 0 20.128 0c22.109 0 44.217 0 66.327 0c3.644 0 7.286 0 10.931 0   c13.293 0 20.963-14.273 16.452-26.031c-4.114-10.729-11.861-20.99-17.542-30.922c-8.81-15.403-17.618-30.809-26.429-46.212   c-1.813-3.167-3.622-6.333-5.434-9.5C76.601-3.516 57.616-2.03 51.333 8.834 M53.973 9.064"/>
+                <GeometryDrawing Brush="#FFFFF200" Geometry="M55.474 12.388c-8.247 14.279-16.492 28.559-24.739 42.839   c-5.526 9.567-11.05 19.137-16.577 28.707c-2.732 4.73-7.323 10.456-8.284 16c-3.799 21.9 34.927 15.743 46.734 15.743   c20.073 0 40.144 0 60.215 0c13.716 0 18.636-11.963 12.229-23.063c-6.462-11.195-12.927-22.388-19.389-33.582   c-7.249-12.557-14.499-25.113-21.75-37.671c-1.682-2.916-3.364-5.829-5.049-8.745C73.767 3.785 60.676 3.364 55.474 12.388"/>
+                <GeometryDrawing Brush="#FFFFCE00" Geometry="M55.474 12.388c-8.247 14.279-16.492 28.559-24.739 42.839c-5.526 9.567-11.05 19.137-16.577 28.707   c-2.732 4.73-7.323 10.456-8.284 16c-3.799 21.9 34.927 15.743 46.734 15.743c20.073 0 40.144 0 60.215 0   c13.716 0 18.636-11.963 12.229-23.063c-6.462-11.195-12.927-22.388-19.389-33.582c-7.249-12.557-14.499-25.113-21.75-37.671   c-1.682-2.916-3.364-5.829-5.049-8.745C73.767 3.785 60.676 3.364 55.474 12.388"/>
+                <GeometryDrawing Brush="#FFFFB600" Geometry="M126.731 95.522c-8.733-15.127-17.468-30.253-26.201-45.379   c-5.537-9.595-11.078-19.188-16.616-28.781c-3.938-6.821-7.459-15.689-16.813-15.689c1.013 0 5.901 10.225 6.469 11.196   c5.451 9.314 10.902 18.63 16.352 27.947c9.217 15.749 18.433 31.498 27.646 47.249c2.302 3.933 5.356 10.555 1.308 14.397   c-3.148 2.987-7.99 3.196-12.099 3.196c-7.225 0-14.448 0-21.674 0c-22.125 0-44.251 0-66.377 0c-3.598 0-7.197 0-10.794 0   c5.285 7.909 16.341 6.02 24.546 6.02c13.009 0 26.017 0 39.023 0c11.979 0 23.958 0 35.937 0c2.516 0 5.032 0 7.547 0   C125.136 115.678 131.878 104.435 126.731 95.522"/>
+                <GeometryDrawing Brush="#FFFFE600" Geometry="M14.615 112.457c-4.483-7.751 1.908-16.103 5.793-22.834   c4.698-8.138 9.398-16.276 14.097-24.414C44.54 47.83 54.574 30.448 64.61 13.069c0.789-1.367 3.725-4.568 2.594-5.539   c-3.913-3.353-10.287 1.936-12.107 5.087c-3.129 5.417-6.258 10.835-9.386 16.252c-11.105 19.226-22.209 38.453-33.313 57.68   c-1.649 2.854-3.299 5.713-4.95 8.569c-4.771 8.265-0.075 19.162 9.658 20.446C16.124 114.65 15.294 113.615 14.615 112.457"/>
+                <GeometryDrawing Brush="#FFFFFFE1" Geometry="M77.076 34.654c0 10.183-1.788 20.758-3.439 30.772   c-0.369 2.239-4.03 23.609-7.796 14.179c-4.247-10.632-4.832-23.419-5.958-34.696c-0.363-3.638-1.538-8.425-0.563-12.06   C61.667 24.099 77.076 25.199 77.076 34.654"/>
+                <GeometryDrawing Brush="#FFFFFFFF" Geometry="M77.076 34.654c-2.018 0.995-1.521 8.717-1.797 11.395c-0.685 6.643-1.505 13.282-2.614 19.869   c-0.79 4.701-1.301 10.862-3.954 14.981c-1.642 2.567-3.405-5.958-3.634-6.932c-2.948-12.443-4.464-25.664-5.09-38.43   c-0.272-5.52 5.164-8.854 10.277-7.622c3.87 0.933 5.217 7.36 7.688 6.738c0.009-11.451-19.755-11.453-19.746 0   c0.017 11.956 2.087 24.599 4.423 36.294c0.501 2.507 1.642 12.376 5.449 12.376c4.059-0.021 5.285-11.432 5.79-14.137   c1.261-6.765 2.139-13.605 2.887-20.444C77.084 45.722 79.281 35.942 77.076 34.654"/>
+                <GeometryDrawing Brush="{StaticResource SmallError_XMLID_5_}" Geometry="M57.957 34.654c0 10.053 1.632 20.54 3.242 30.431   c0.479 2.936 4.912 26.502 9.99 15.164c4.987-11.134 5.351-25.201 6.386-37.184c0.273-3.169 1.153-7.045 0.421-10.221   C75.628 22.587 57.957 23.788 57.957 34.654 M60.207 34.654c0-8.061 13.138-9.015 15.459-1.792c1.156 3.597-0.13 8.748-0.508 12.38   c-1.135 10.904-2.052 22.602-5.501 33.069c-2.816 8.545-5.546-10.187-5.934-12.522C62.039 55.63 60.207 44.985 60.207 34.654"/>
+                <GeometryDrawing Brush="#FFFFFFE1" Geometry="M77.076 96.788c0 11.964-18.555 11.964-18.555 0   C58.521 84.822 77.076 84.822 77.076 96.788"/>
+                <GeometryDrawing Brush="#FFFFFFFF" Geometry="M77.076 96.788c-2.605 1.661-2.157 6.757-7.044 8.101c-6.178 1.7-12.033-4.159-10.336-10.335   c1.439-5.23 7.657-7.767 12.341-5.021c2.91 1.704 3.164 7.913 5.915 7.256c0-14.267-22.698-12.238-20.143 1.826   c0.987 5.444 6.375 9.15 11.814 8.162C72.417 106.271 81.44 98.19 77.076 96.788"/>
+                <GeometryDrawing Brush="{StaticResource SmallError_XMLID_6_}" Geometry="M57.395 96.788c0 13.41 20.805 13.41 20.805 0   C78.2 83.376 57.395 83.375 57.395 96.788 M59.647 96.788c0-10.514 16.301-10.514 16.301 0   C75.948 107.3 59.647 107.3 59.647 96.788"/>
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+
+</ResourceDictionary>
