@@ -58,4 +58,26 @@ namespace WpfApp
             throw new NotImplementedException();
         }
     }
+
+
+
+    public class TooltipConverter : IMultiValueConverter
+    {
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (values != null && values.Length == 1 && values[0] != null)
+            {
+                if (values[0] is string text)
+                {
+                    return text;
+                }
+            }
+            return null;
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

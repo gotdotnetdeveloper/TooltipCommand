@@ -15,6 +15,12 @@ namespace WpfApp
 
         private bool CanExecuteSaveEmployeesMethod(CanExecuteInfo info, string obj)
         {
+            if (!string.IsNullOrEmpty(Test) &&  Test.Length > 1)
+            {
+                info.DisableReasonTip = $"{Test}!!!!!!";
+                info.DisableReason = DisableReason.BusinessRule;
+                return false;
+            }
             return true;
         }
 

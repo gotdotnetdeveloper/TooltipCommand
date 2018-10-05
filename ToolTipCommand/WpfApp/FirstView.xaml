@@ -15,17 +15,22 @@
 
 
     <UserControl.Resources>
-        <ResourceDictionary>
-         
-
-        </ResourceDictionary>
+        <ResourceDictionary Source="/WpfApp;component/ToolTipDictionary.xaml" />
     </UserControl.Resources>
 
     <Grid>
         <!--Style="{StaticResource DisableReasonButtonContentStyle}"-->
         <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Center">
             <TextBox Height="20" Text="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button Height="20" Command="{Binding SaveEmployeesCommand}">SaveEmployeesCommand</Button>
+            <Button Height="20" ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000"
+                    Command="{Binding SaveEmployeesCommand}">
+                <Button.ToolTip>
+                    <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource TooltipConverter}" >
+                        <Binding Path="SaveEmployeesCommand.DisableReasonTip"   />
+                    </MultiBinding>
+                </Button.ToolTip>
+                SaveEmployeesCommand
+            </Button>
 
         </StackPanel>
     </Grid>

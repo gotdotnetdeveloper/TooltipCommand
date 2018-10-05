@@ -4,6 +4,7 @@
 
     <local:DisableMarkImageConverter x:Key="disableMarkImageConverter"/>
     <local:DisableControlTooltipConverter x:Key="disableControlTooltipConverter"/>
+    <local:TooltipConverter x:Key="TooltipConverter"/>
     
 
     <Style x:Key="DisableReasonButtonContentStyle" TargetType="ContentControl">
