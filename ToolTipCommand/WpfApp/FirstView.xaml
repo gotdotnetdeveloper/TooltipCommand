@@ -33,7 +33,7 @@
             </Button>
 
             <TextBox Height="20" Text="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button Height="20" Style="{StaticResource DisableReasonButtonContentStyle_Test}"
+            <Button Height="20" Style="{StaticResource Buttons_Button}"
                     ToolTip="Это тултип"
                     Command="{Binding SaveEmployeesCommand}">
                 Биндинг DisableReasonTip через стиль
