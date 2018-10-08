@@ -23,7 +23,9 @@ namespace WpfApp
                 : (dr == DisableReason.Error) ? "SmallError"
                 : "SmallRedStop";
 
-            return Application.Current.FindResource(key);
+            var returnValue = Application.Current.FindResource(key);
+
+            return returnValue;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

@@ -15,7 +15,7 @@
 
 
     <UserControl.Resources>
-        <ResourceDictionary Source="/WpfApp;component/ToolTipDictionary.xaml" />
+    
     </UserControl.Resources>
 
     <Grid>
@@ -29,7 +29,14 @@
                         <Binding Path="SaveEmployeesCommand.DisableReasonTip"   />
                     </MultiBinding>
                 </Button.ToolTip>
-                SaveEmployeesCommand
+                Биндинг DisableReasonTip непосредственно в кнопку
+            </Button>
+
+            <TextBox Height="20" Text="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <Button Height="20" Style="{StaticResource DisableReasonButtonContentStyle_Test}"
+                    ToolTip="Это тултип"
+                    Command="{Binding SaveEmployeesCommand}">
+                Биндинг DisableReasonTip через стиль
             </Button>
 
         </StackPanel>

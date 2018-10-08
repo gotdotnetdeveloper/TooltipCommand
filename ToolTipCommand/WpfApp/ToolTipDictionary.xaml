@@ -5,7 +5,51 @@
     <local:DisableMarkImageConverter x:Key="disableMarkImageConverter"/>
     <local:DisableControlTooltipConverter x:Key="disableControlTooltipConverter"/>
     <local:TooltipConverter x:Key="TooltipConverter"/>
-    
+
+    <Style x:Key="DisableReasonButtonContentStyle_Test" TargetType="ContentControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000">
+                        <Grid.ToolTip>
+                            <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                                <!-- DisableReasonToolTipStyle -->
+                                <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}" />
+                                <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}"/>
+                                <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=Button, Mode=FindAncestor}"/>
+                                <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            </MultiBinding>
+                        </Grid.ToolTip>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{TemplateBinding Content}" Grid.Column="0" HorizontalAlignment="Center" />
+                        <Image Name="PART_DisableReason" Grid.Column="1" Margin="3,0,0,0">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="MaxHeight" Value="14"/>
+                                    <Setter Property="MaxWidth" Value="14"/>
+                                    <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+                                    <Setter Property="ToolTipService.ShowDuration" Value="60000"/>
+                                </Style>
+                            </Image.Style>
+                            <Image.Source>
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <Binding Converter="{StaticResource disableMarkImageConverter}"
+                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=Button}"
+                                     Path="Command.DisableReason" />
+                            </Image.Source>
+                        </Image>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 
     <Style x:Key="DisableReasonButtonContentStyle" TargetType="ContentControl">
         <Setter Property="Margin" Value="0"/>
@@ -46,7 +90,6 @@
                             </Image.Source>
                         </Image>
                     </Grid>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>

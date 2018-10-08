@@ -4,6 +4,11 @@
              xmlns:local="clr-namespace:WpfApp"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/WpfApp;component/Icon.xaml" />
+                <ResourceDictionary Source="/WpfApp;component/ToolTipDictionary.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
