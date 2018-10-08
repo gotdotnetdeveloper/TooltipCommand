@@ -19,6 +19,9 @@ namespace WpfApp
             if (dr == DisableReason.None)
                 return null;
 
+            //var key = (dr == DisableReason.Security) ? "SmallLock" желтый замочек.
+            //    : (dr == DisableReason.Error) ? "SmallError" желтый треугольник с восклицательным знаком
+            //    : "SmallRedStop"; Красный кирпич
             var key = (dr == DisableReason.Security) ? "SmallLock"
                 : (dr == DisableReason.Error) ? "SmallError"
                 : "SmallRedStop";

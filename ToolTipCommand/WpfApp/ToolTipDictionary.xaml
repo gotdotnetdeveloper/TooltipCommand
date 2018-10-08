@@ -5,6 +5,7 @@
     <local:DisableMarkImageConverter x:Key="disableMarkImageConverter"/>
     <local:DisableControlTooltipConverter x:Key="disableControlTooltipConverter"/>
     <local:TooltipConverter x:Key="TooltipConverter"/>
+    <local:CommandColorConverter x:Key="CommandColorConverter"/>
 
     <Style x:Key="DisableReasonButtonContentStyle_Test" TargetType="ContentControl">
         <Setter Property="Margin" Value="0"/>
@@ -168,4 +169,192 @@
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
     </Style>
 
+
+
+    <!--ToggleButton-->
+    <Style x:Key="DisableReasonToggleButtonContentStyle" TargetType="ContentControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                        <Grid ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000">
+                            <Grid.ToolTip>
+                                <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                                    <!-- DisableReasonToolTipStyle -->
+                                <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}" />
+                                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}"/>
+                                <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}"/>
+                                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                                </MultiBinding>
+                            </Grid.ToolTip>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ContentPresenter Content="{TemplateBinding Content}" 
+                                              Grid.Column="0" HorizontalAlignment="Center" />
+                            <Image Name="PART_DisableReason" Grid.Column="1" Margin="3,0,0,0">
+                                <Image.Style>
+                                    <Style TargetType="Image">
+                                        <Setter Property="MaxHeight" Value="14"/>
+                                        <Setter Property="MaxWidth" Value="14"/>
+                                        <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+                                        <Setter Property="ToolTipService.ShowDuration" Value="60000"/>
+                                    </Style>
+                                </Image.Style>
+                                <Image.Source>
+                                    <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                    <Binding Converter="{StaticResource disableMarkImageConverter}"
+                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=ToggleButton}"
+                                     Path="Command.DisableReason" />
+                                </Image.Source>
+                            </Image>
+
+                      
+                        </Grid>
+
+           
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <DataTemplate x:Key="ToggleButtonWithDisableReasonContentTemplate">
+        <ContentControl Style="{StaticResource DisableReasonToggleButtonContentStyle}">
+            <ContentPresenter HorizontalAlignment="Center" Content="{TemplateBinding Content}" />
+        </ContentControl>
+    </DataTemplate>
+
+    <Style x:Key="Buttons_ToggleButton" TargetType="ToggleButton" >
+        <Setter Property="ContentTemplate" Value="{StaticResource ToggleButtonWithDisableReasonContentTemplate}"/>
+        <!--<Setter Property="FontSize" Value="{StaticResource DefaultFontSize}" />
+        <Setter Property="FontFamily" Value="{StaticResource DefaultFontFamily}" />-->
+        <Setter Property="MinWidth" Value="25" />
+        <Setter Property="MinHeight" Value="25" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="10 3 10 3" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+
+
+    <!--ToggleButton 2-->
+    <Style x:Key="DisableReasonToggleButtonContentStyle2" TargetType="ContentControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000">
+                        <Grid.ToolTip>
+                            <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                                <!-- DisableReasonToolTipStyle -->
+                                <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}" />
+                                <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}"/>
+                                <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}"/>
+                                <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            </MultiBinding>
+                        </Grid.ToolTip>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{TemplateBinding Content}" 
+                                              Grid.Column="0" HorizontalAlignment="Center" />
+                        <Image Name="PART_DisableReason" Grid.Column="1" Margin="3,0,0,0">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="MaxHeight" Value="14"/>
+                                    <Setter Property="MaxWidth" Value="14"/>
+                                    <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+                                    <Setter Property="ToolTipService.ShowDuration" Value="60000"/>
+                                </Style>
+                            </Image.Style>
+                            <Image.Source>
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <Binding Converter="{StaticResource disableMarkImageConverter}"
+                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=ToggleButton}"
+                                     Path="Command.DisableReason" />
+                            </Image.Source>
+                        </Image>
+
+
+                    </Grid>
+
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="ToggleButtonWithDisableReasonContentTemplate2">
+        <ContentControl Style="{StaticResource DisableReasonToggleButtonContentStyle2}">
+            <ContentPresenter HorizontalAlignment="Center" Content="{TemplateBinding Content}" />
+        </ContentControl>
+    </DataTemplate>
+
+    <Style x:Key="Buttons_ToggleButton2" TargetType="ToggleButton" >
+        <Setter Property="ContentTemplate" Value="{StaticResource ToggleButtonWithDisableReasonContentTemplate2}"/>
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="MinHeight" Value="25" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="10 3 10 3" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+
+
+    <!--ToggleButton 3-->
+    <Style x:Key="DisableReasonToggleButtonContentStyle3" TargetType="ContentControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000">
+                        <Grid.ToolTip>
+                            <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                                <!-- DisableReasonToolTipStyle -->
+                                <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}" />
+                                <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}"/>
+                                <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=ToggleButton, Mode=FindAncestor}"/>
+                                <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            </MultiBinding>
+                        </Grid.ToolTip>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{TemplateBinding Content}" 
+                                              Grid.Column="0" HorizontalAlignment="Center">
+                            
+                        </ContentPresenter>
+                    </Grid>
+
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="ToggleButtonWithDisableReasonContentTemplate3">
+        <ContentControl Style="{StaticResource DisableReasonToggleButtonContentStyle3}">
+            <ContentPresenter HorizontalAlignment="Center" Content="{TemplateBinding Content}" />
+        </ContentControl>
+    </DataTemplate>
+
+    <Style x:Key="Buttons_ToggleButton3" TargetType="ToggleButton" >
+        <Setter Property="ContentTemplate" Value="{StaticResource ToggleButtonWithDisableReasonContentTemplate3}"/>
+        <Setter Property="MinWidth" Value="100" />
+        <Setter Property="MinHeight" Value="25" />
+        <Setter Property="Margin" Value="5" />
+        <Setter Property="Padding" Value="10 3 10 3" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
 </ResourceDictionary>

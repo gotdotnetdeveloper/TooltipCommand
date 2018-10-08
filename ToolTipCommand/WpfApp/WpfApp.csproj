@@ -66,6 +66,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CommandColorConverter.cs" />
     <Compile Include="DisableMarkImageConverter.cs" />
     <Compile Include="TextBlockService.cs" />
     <Compile Include="TooltipWithDisableReason.cs" />
