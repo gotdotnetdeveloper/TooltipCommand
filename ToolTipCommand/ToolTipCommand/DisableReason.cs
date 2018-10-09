@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ToolTipCommand
+﻿namespace ToolTipCommand
 {
     /// <summary>
     /// Причина блокирования комманды
@@ -16,7 +10,7 @@ namespace ToolTipCommand
         /// </summary>
         None,
         /// <summary>
-        /// Причина - безопастность
+        /// Причина блокировки - безопастность
         /// </summary>
         Security,
         /// <summary>

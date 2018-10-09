@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Helpers;
@@ -16,22 +12,22 @@ namespace ToolTipCommand
     /// <remarks>CommandManager класс автоматически вкл/выкл CanExecute.</remarks>
     public class ViewModelCommand<T> : ObservableObject, ICommand
     {
+        #region Приватные свойства
         private readonly WeakAction<T> _execute;
         private readonly WeakFuncInfo<CanExecuteInfo, T, bool> _canExecute;
         private string _disableReasonTip;
         private DisableReason _disableReason;
+        #endregion
 
         /// <summary>
         /// Конструктор команды
         /// </summary>
         /// <param name="execute">Метод исполнения. ЗАМЕЧАНИЕ: Зависит от флага keepTargetAlive. Если нужна жесткая ссылка, то keepTargetAlive = true. </param>
-        /// <param name="canExecuteSaveEmployeesMethod"></param>
         /// <param name="keepTargetAlive">Если true, Action будет оставлен жесткой ссылкой, иначе - слабой ссылкой (для лучшей работы сборщика памяти GC).</param>
         /// <exception cref="T:System.ArgumentNullException"> Если аргумент = null.</exception>
-        public ViewModelCommand(Action<T> execute, object canExecuteSaveEmployeesMethod, bool keepTargetAlive = false)
-          : this(execute, (Func<CanExecuteInfo, T, bool>)null, keepTargetAlive)
-        {
-        }
+        public ViewModelCommand(Action<T> execute, bool keepTargetAlive = false)
+          : this(execute, null, keepTargetAlive)
+        {}
 
         /// <summary>
         /// Конструктор команды
@@ -44,41 +40,36 @@ namespace ToolTipCommand
         {
             if (execute == null)
                 throw new ArgumentNullException(nameof(execute));
-            this._execute = new WeakAction<T>(execute, keepTargetAlive);
+            _execute = new WeakAction<T>(execute, keepTargetAlive);
             if (canExecute == null)
                 return;
-            this._canExecute = new WeakFuncInfo<CanExecuteInfo,T, bool>(canExecute, keepTargetAlive);
+            _canExecute = new WeakFuncInfo<CanExecuteInfo,T, bool>(canExecute, keepTargetAlive);
         }
 
+        #region Публичные свойства
         /// <summary>Подсказка о причине недоступности контрола</summary>
         public string DisableReasonTip
         {
-            get
-            {
-                return this._disableReasonTip;
-            }
+            get => _disableReasonTip;
             set
             {
-                if (!(this._disableReasonTip != value))
+                if (_disableReasonTip == value)
                     return;
-                this._disableReasonTip = value;
-                this.RaisePropertyChanged(nameof(DisableReasonTip));
+                _disableReasonTip = value;
+                RaisePropertyChanged(nameof(DisableReasonTip));
             }
         }
 
         /// <summary>Вид причины недоступности</summary>
         public DisableReason DisableReason
         {
-            get
-            {
-                return this._disableReason;
-            }
+            get => _disableReason;
             set
             {
-                if (this._disableReason == value)
+                if (_disableReason == value)
                     return;
-                this._disableReason = value;
-                this.RaisePropertyChanged(nameof(DisableReason));
+                _disableReason = value;
+                RaisePropertyChanged(nameof(DisableReason));
             }
         }
 
@@ -90,13 +81,13 @@ namespace ToolTipCommand
         {
             add
             {
-                if (this._canExecute == null)
+                if (_canExecute == null)
                     return;
                 CommandManager.RequerySuggested += value;
             }
             remove
             {
-                if (this._canExecute == null)
+                if (_canExecute == null)
                     return;
                 CommandManager.RequerySuggested -= value;
             }
@@ -120,57 +111,61 @@ namespace ToolTipCommand
             bool flag = false;
             try
             {
-                CanExecuteInfo canExecuteInfo = new CanExecuteInfo((ICommand)this);
-                if (this._canExecute == null)
-                return true;
+                CanExecuteInfo canExecuteInfo = new CanExecuteInfo(this);
+                if (_canExecute == null)
+                    return true;
 
-            if (this._canExecute.IsStatic || this._canExecute.IsAlive)
-            {
-                if (parameter == null && typeof(T).IsValueType)
-                        flag = this._canExecute.Execute(canExecuteInfo,default(T));
-                else if (parameter == null || parameter is T)
-                    flag = this._canExecute.Execute(canExecuteInfo,(T)parameter);
+                if (_canExecute.IsStatic || _canExecute.IsAlive)
+                {
+                    if (parameter == null && typeof(T).IsValueType)
+                        flag = _canExecute.Execute(canExecuteInfo, default(T));
+                    else if (parameter == null || parameter is T)
+                        flag = _canExecute.Execute(canExecuteInfo, (T)parameter);
                 }
                 if (flag)
                 {
-                    this.DisableReason = DisableReason.None;
-                    this.DisableReasonTip = (string)null;
+                    DisableReason = DisableReason.None;
+                    DisableReasonTip = null;
                 }
                 else
                 {
-                    this.DisableReasonTip = canExecuteInfo.DisableReasonTip;
-                    this.DisableReason = canExecuteInfo.DisableReason;
+                    DisableReasonTip = canExecuteInfo.DisableReasonTip;
+                    DisableReason = canExecuteInfo.DisableReason;
                 }
                 return flag;
             }
             catch (Exception ex)
             {
-                return this.OnCanExecuteException(ex);
+                return OnCanExecuteException(ex);
             }
-      
         }
+        /// <summary>
+        /// Возможность исполнения команды.
+        /// </summary>
+        /// <param name="canExecuteInfo">Контекст команды для CanExecute.</param>
+        /// <param name="parameter">Параметр команды для CanExecute.</param>
+        /// <returns>True = Можно исполнить команду. False=нельзя исполнить.</returns>
         public bool CanExecute(CanExecuteInfo canExecuteInfo, object parameter)
         {
             bool flag = false;
             try
             {
-                if (this._canExecute == null)
+                if (_canExecute == null)
                     return true;
 
-                if (this._canExecute.IsStatic || this._canExecute.IsAlive)
+                if (_canExecute.IsStatic || _canExecute.IsAlive)
                 {
                     if (parameter == null && typeof(T).IsValueType)
-                        flag = this._canExecute.Execute(canExecuteInfo, default(T));
+                        flag = _canExecute.Execute(canExecuteInfo, default(T));
                     else if (parameter == null || parameter is T)
-                        flag = this._canExecute.Execute(canExecuteInfo, (T)parameter);
+                        flag = _canExecute.Execute(canExecuteInfo, (T)parameter);
                 }
                 return flag;
             }
             catch (Exception ex)
             {
-                return this.OnCanExecuteException(ex);
+                return OnCanExecuteException(ex);
             }
-
         }
 
         /// <summary>
@@ -181,26 +176,28 @@ namespace ToolTipCommand
         {
             object parameter1 = parameter;
             if (parameter != null && parameter.GetType() != typeof(T) && parameter is IConvertible)
-                parameter1 = Convert.ChangeType(parameter, typeof(T), (IFormatProvider)null);
-            if (!this.CanExecute(parameter1) || this._execute == null || !this._execute.IsStatic && !this._execute.IsAlive)
+                parameter1 = Convert.ChangeType(parameter, typeof(T), null);
+            if (!CanExecute(parameter1) || _execute == null || !_execute.IsStatic && !_execute.IsAlive)
                 return;
             if (parameter1 == null)
             {
-                if (typeof(T).IsValueType)
-                    this._execute.Execute(default(T));
-                else
-                    this._execute.Execute((T)parameter1);
+                _execute.Execute(default(T));
+                //if (typeof(T).IsValueType)
+                //    _execute.Execute(default(T));
+                //else
+                //    _execute.Execute((T)parameter1);
             }
             else
-                this._execute.Execute((T)parameter1);
+                _execute.Execute((T)parameter1);
         }
 
         /// <summary>Обработчик ошибки, возникшей в CanExecute()</summary>
         protected bool OnCanExecuteException(Exception e)
         {
-            this.DisableReason = DisableReason.Error;
-            this.DisableReasonTip = e.Message;
+            DisableReason = DisableReason.Error;
+            DisableReasonTip = e.Message;
             return false;
         }
+        #endregion
     }
 }

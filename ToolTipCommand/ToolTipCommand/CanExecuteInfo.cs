@@ -1,34 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace ToolTipCommand
 {
     /// <summary>Контекст команды для CanExecute</summary>
     public class CanExecuteInfo
     {
-       // private static readonly CanExecuteInfo _empty = new CanExecuteInfo((ICommand)null);
+        #region Приватные свойства
         private readonly ICommand _command;
         private DisableReason _disableReason;
+        #endregion
 
+
+        /// <summary>
+        /// Конструктор CanExecuteInfo
+        /// </summary>
+        /// <param name="command"> Команда</param>
         internal CanExecuteInfo(ICommand command)
         {
-            this._command = command;
+            _command = command;
         }
 
-        ///// <summary>Empty CanExecuteInfo for Fake calls</summary>
-        //public static CanExecuteInfo Empty
-        //{
-        //    get
-        //    {
-        //        return CanExecuteInfo._empty;
-        //    }
-        //}
-
-        /// <summary>Сообщение</summary>
+        #region Публичные свойства
+        /// <summary>Сообщение, отображаемое на экране.</summary>
         public string DisableReasonTip { get; set; }
 
         /// <summary>Причина недоступности</summary>
@@ -36,24 +29,15 @@ namespace ToolTipCommand
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(this.DisableReasonTip) || this._disableReason != DisableReason.None)
-                    return this._disableReason;
+                if (string.IsNullOrWhiteSpace(DisableReasonTip) || _disableReason != DisableReason.None)
+                    return _disableReason;
                 return DisableReason.BusinessRule;
             }
-            set
-            {
-                this._disableReason = value;
-            }
+            set => _disableReason = value;
         }
 
         /// <summary>Обрабатываемая команда</summary>
-        public ICommand Command
-        {
-            get
-            {
-                return this._command;
-            }
-        }
+        public ICommand Command => _command;
 
         /// <summary>Команда резрешена, если выполняется условие condition</summary>
         /// <param name="condition">Условие</param>
@@ -64,26 +48,25 @@ namespace ToolTipCommand
         {
             if (!condition)
             {
-                this.DisableReason = disableReason;
-                this.DisableReasonTip = disableReasonTip;
+                DisableReason = disableReason;
+                DisableReasonTip = disableReasonTip;
             }
             return condition;
         }
-
         /// <summary>Команда резрешена, если выполняется условие condition</summary>
         /// <param name="condition">Условие</param>
         /// <param name="disableReasonTip">Сообщение</param>
-        /// <returns></returns>
+        /// <returns>true = Если команда разрешена. false =  Если команда запрещена</returns>
         public bool EnableIf(bool condition, string disableReasonTip)
         {
-            return this.EnableIf(condition, DisableReason.BusinessRule, disableReasonTip);
+            return EnableIf(condition, DisableReason.BusinessRule, disableReasonTip);
         }
 
         /// <summary>Блокировать команду  </summary>
         /// <param name="disableReasonTip">Текстовая причина</param>
         public bool Disable(string disableReasonTip)
         {
-            return this.Disable(DisableReason.BusinessRule, disableReasonTip);
+            return Disable(DisableReason.BusinessRule, disableReasonTip);
         }
 
         /// <summary>
@@ -94,9 +77,11 @@ namespace ToolTipCommand
         /// <returns>всегда false</returns>
         public bool Disable(DisableReason disableReason, string disableReasonTip)
         {
-            this.DisableReason = DisableReason.BusinessRule;
-            this.DisableReasonTip = disableReasonTip;
+            DisableReason = DisableReason.BusinessRule;
+            DisableReasonTip = disableReasonTip;
             return false;
         }
+        #endregion
+
     }
 }

@@ -1,206 +1,181 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ToolTipCommand
 {
     /// <summary>
     /// Слабая ссылка с CanExecuteInfo
     /// </summary>
-    /// <typeparam name="TResult"></typeparam>
+    /// <typeparam name="TResult">Тип возращаемых параметров.</typeparam>
     /// <typeparam name="TCanExecuteInfo">Информация о CanExecute</typeparam>
     public class WeakFuncInfo<TCanExecuteInfo, TResult> where TCanExecuteInfo : CanExecuteInfo
     {
         private Func<TCanExecuteInfo, TResult> _staticFunc;
 
         /// <summary>
-        /// Gets or sets the <see cref="T:System.Reflection.MethodInfo" /> corresponding to this WeakFunc's
-        /// method passed in the constructor.
+        /// Описание метода <see cref="T:System.Reflection.MethodInfo"/> соответствующие WeakFunc. Метод передается в конструктор.
         /// </summary>
         protected MethodInfo Method { get; set; }
 
         /// <summary>
-        /// Get a value indicating whether the WeakFunc is static or not.
+        /// Является ли слабая ссылка статичным типом static
         /// </summary>
-        public bool IsStatic
-        {
-            get
-            {
-                return this._staticFunc != null;
-            }
-        }
+        public bool IsStatic => _staticFunc != null;
 
         /// <summary>
-        /// Gets the name of the method that this WeakFunc represents.
+        /// Имя метода который соответствует слабой ссылки.
         /// </summary>
         public virtual string MethodName
         {
             get
             {
-                if (this._staticFunc != null)
-                    return this._staticFunc.GetMethodInfo().Name;
-                return this.Method.Name;
+                if (_staticFunc != null)
+                    return _staticFunc.GetMethodInfo().Name;
+                return Method.Name;
             }
         }
 
         /// <summary>
-        /// Gets or sets a WeakReference to this WeakFunc's action's target.
-        /// This is not necessarily the same as
-        /// <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Reference" />, for example if the
-        /// method is anonymous.
+        /// Получает или задает значение WeakReference для этой цели действия WeakFunc. Это не обязательно то же самое, что
         /// </summary>
         protected WeakReference FuncReference { get; set; }
 
         /// <summary>
-        /// Saves the <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.FuncReference" /> as a hard reference. This is
-        /// used in relation with this instance's constructor and only if
-        /// the constructor's keepTargetAlive parameter is true.
+        /// Сохраняет как жесткую ссылку. Это используется в отношении конструктора этого экземпляра и только если
+        /// параметр keepTargetAlive конструктора является истинным.
         /// </summary>
         protected object LiveReference { get; set; }
 
         /// <summary>
-        /// Gets or sets a WeakReference to the target passed when constructing
-        /// the WeakFunc. This is not necessarily the same as
-        /// <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.FuncReference" />, for example if the
-        /// method is anonymous.
+        /// Получает или задает значение WeakReference для цели, переданной при построении WeakFunc, например, если метод анонимный.
         /// </summary>
         protected WeakReference Reference { get; set; }
 
-        /// <summary>Initializes an empty instance of the WeakFunc class.</summary>
+        /// <summary>Инициализирует пустой экземпляр класса WeakFunc.</summary>
         protected WeakFuncInfo()
-        {
-        }
+        {}
 
-        /// <summary>Initializes a new instance of the WeakFunc class.</summary>
-        /// <param name="func">The Func that will be associated to this instance.</param>
-        /// <param name="keepTargetAlive">If true, the target of the Action will
-        /// be kept as a hard reference, which might cause a memory leak. You should only set this
-        /// parameter to true if the action is using closures. See
-        /// http://galasoft.ch/s/mvvmweakaction. </param>
+        /// <summary>Инициализирует новый экземпляр класса WeakFunc.</summary>
+        /// <param name="func">Функция, которая ассоциирована с экземпляром.</param>
+        /// <param name="keepTargetAlive">True=если использовать как жесткую ссылку (требует ручного контроля, возможна утечка памяти) </param>
         public WeakFuncInfo(Func<TCanExecuteInfo,TResult> func, bool keepTargetAlive = false)
-          : this(func == null ? (object)null : func.Target, func, keepTargetAlive)
+            // ReSharper disable once MergeConditionalExpression
+          : this(func == null ? null : func.Target, func, keepTargetAlive)
         {
         }
 
-        /// <summary>Initializes a new instance of the WeakFunc class.</summary>
-        /// <param name="target">The Func's owner.</param>
-        /// <param name="func">The Func that will be associated to this instance.</param>
-        /// <param name="keepTargetAlive">If true, the target of the Action will
-        /// be kept as a hard reference, which might cause a memory leak. You should only set this
-        /// parameter to true if the action is using closures. See
-        /// http://galasoft.ch/s/mvvmweakaction. </param>
+        /// <summary>Инициализирует новый экземпляр класса WeakFunc.</summary>
+        /// <param name="target">Функция владельца.</param>
+        /// <param name="func">Func, который будет связан с этим экземпляром</param>
+        /// <param name="keepTargetAlive">True=если использовать как жесткую ссылку (требует ручного контроля, возможна утечка памяти). </param>
         public WeakFuncInfo(object target, Func<TCanExecuteInfo,TResult> func, bool keepTargetAlive = false)
         {
             if (func.GetMethodInfo().IsStatic)
             {
-                this._staticFunc = func;
+                _staticFunc = func;
                 if (target == null)
                     return;
-                this.Reference = new WeakReference(target);
+                Reference = new WeakReference(target);
             }
             else
             {
-                this.Method = func.GetMethodInfo();
-                this.FuncReference = new WeakReference(func.Target);
-                this.LiveReference = keepTargetAlive ? func.Target : (object)null;
-                this.Reference = new WeakReference(target);
+                Method = func.GetMethodInfo();
+                FuncReference = new WeakReference(func.Target);
+                LiveReference = keepTargetAlive ? func.Target : null;
+                Reference = new WeakReference(target);
             }
         }
 
         /// <summary>
-        /// Gets a value indicating whether the Func's owner is still alive, or if it was collected
-        /// by the Garbage Collector already.
+        /// Получает значение, указывающее, жив ли еще владелец T, или если он был собран сборщиком мусора.
         /// </summary>
         public virtual bool IsAlive
         {
             get
             {
-                if (this._staticFunc == null && this.Reference == null && this.LiveReference == null)
+                if (_staticFunc == null && Reference == null && LiveReference == null)
                     return false;
-                if (this._staticFunc != null)
+                if (_staticFunc != null)
                 {
-                    if (this.Reference != null)
-                        return this.Reference.IsAlive;
+                    if (Reference != null)
+                        return Reference.IsAlive;
                     return true;
                 }
-                if (this.LiveReference != null)
+                if (LiveReference != null)
                     return true;
-                if (this.Reference != null)
-                    return this.Reference.IsAlive;
+                if (Reference != null)
+                    return Reference.IsAlive;
                 return false;
             }
         }
 
         /// <summary>
-        /// Gets the Func's owner. This object is stored as a
-        /// <see cref="T:System.WeakReference" />.
+        /// Получает владельца Func. Этот объект хранится как WeakReference
         /// </summary>
         public object Target
         {
             get
             {
-                if (this.Reference == null)
-                    return (object)null;
-                return this.Reference.Target;
+                if (Reference == null)
+                    return null;
+                return Reference.Target;
             }
         }
 
         /// <summary>
-        /// Gets the owner of the Func that was passed as parameter.
-        /// This is not necessarily the same as
-        /// <see cref="P:GalaSoft.MvvmLight.Helpers.WeakFunc`1.Target" />, for example if the
-        /// method is anonymous.
+        /// Получает владельца Func, который был передан как параметр. Это не обязательно то же самое, что, например, если метод анонимный.
         /// </summary>
         protected object FuncTarget
         {
             get
             {
-                if (this.LiveReference != null)
-                    return this.LiveReference;
-                if (this.FuncReference == null)
-                    return (object)null;
-                return this.FuncReference.Target;
+                if (LiveReference != null)
+                    return LiveReference;
+                if (FuncReference == null)
+                    return null;
+                return FuncReference.Target;
             }
         }
 
         /// <summary>
-        /// Executes the action. This only happens if the Func's owner
-        /// is still alive.
+        /// Выполняет Func. Это происходит только в том случае, если владелец Func все еще жив. Параметр Func установлен в значение по умолчанию (T).
         /// </summary>
-        /// <returns>The result of the Func stored as reference.</returns>
+        /// <returns>Результат Func, сохраненный в качестве ссылки.</returns>
         public TResult Execute()
         {
-            return this.Execute(default(TCanExecuteInfo));
+            return Execute(default(TCanExecuteInfo));
         }
 
-
+        /// <summary>
+        /// Выполняет Func. Это происходит только в том случае, если владелец Func все еще жив. Параметр Func установлен в значение по умолчанию (T).
+        /// </summary>
+        /// <param name="parameter">Информация о CanExecute.</param>
+        /// <returns>Результат Func, сохраненный в качестве ссылки.</returns>
         public TResult Execute(TCanExecuteInfo parameter)
         {
-            if (this._staticFunc != null)
-                return this._staticFunc(parameter);
-            object funcTarget = this.FuncTarget;
+            if (_staticFunc != null)
+                return _staticFunc(parameter);
+            object funcTarget = FuncTarget;
 
-            if (!this.IsAlive || this.Method == null || this.LiveReference == null && this.FuncReference == null ||
+            if (!IsAlive || Method == null || LiveReference == null && FuncReference == null ||
                 funcTarget == null)
                 return default(TResult);
 
-            return (TResult) this.Method.Invoke(funcTarget, new object[1]
+            // ReSharper disable once RedundantExplicitArraySize
+            return (TResult) Method.Invoke(funcTarget, new object[1]
             {
-                (object) parameter
+                parameter
             });
         }
 
-        /// <summary>Sets the reference that this instance stores to null.</summary>
+        /// <summary>Устанавливает ссылку, которую этот экземпляр сохраняет в null.</summary>
         public void MarkForDeletion()
         {
-            this.Reference = (WeakReference)null;
-            this.FuncReference = (WeakReference)null;
-            this.LiveReference = (object)null;
-            this.Method = (MethodInfo)null;
-            this._staticFunc = (Func<TCanExecuteInfo,TResult>)null;
+            Reference = null;
+            FuncReference = null;
+            LiveReference = null;
+            Method = null;
+            _staticFunc = null;
         }
     }
 }
