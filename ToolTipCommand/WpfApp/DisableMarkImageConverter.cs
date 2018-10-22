@@ -7,8 +7,24 @@ using ToolTipCommand;
 
 namespace WpfApp
 {
+    /// <summary>
+    /// Конвертер для картинки валидации.
+    /// </summary>
     public class DisableMarkImageConverter : IValueConverter
     {
+        /// <summary>
+        /// Ключ картинки. Желтый замочек.
+        /// </summary>
+        public const string SmallLockKeyPictute = "SmallLock";
+        /// <summary>
+        /// Ключ картинки. Желтый треугольник с восклицательным знаком.
+        /// </summary>
+        public const string SmallErrorKeyPictute = "SmallError";
+        /// <summary>
+        /// Ключ картинки. Красный кирпич.
+        /// </summary>
+        public const string SmallRedStopKeyPictute = "SmallRedStop";
+
         #region Implementation of IValueConverter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -19,12 +35,9 @@ namespace WpfApp
             if (dr == DisableReason.None)
                 return null;
 
-            //var key = (dr == DisableReason.Security) ? "SmallLock" желтый замочек.
-            //    : (dr == DisableReason.Error) ? "SmallError" желтый треугольник с восклицательным знаком
-            //    : "SmallRedStop"; Красный кирпич
-            var key = (dr == DisableReason.Security) ? "SmallLock"
-                : (dr == DisableReason.Error) ? "SmallError"
-                : "SmallRedStop";
+            var key = (dr == DisableReason.Security) ? SmallLockKeyPictute
+                : (dr == DisableReason.Error) ? SmallErrorKeyPictute
+                : SmallRedStopKeyPictute;
 
             var returnValue = Application.Current.FindResource(key);
 
