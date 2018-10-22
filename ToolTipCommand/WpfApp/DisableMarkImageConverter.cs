@@ -34,14 +34,26 @@ namespace WpfApp
             var dr = (DisableReason)value;
             if (dr == DisableReason.None)
                 return null;
+            var key = string.Empty;
+            switch (dr)
+            {
+                case DisableReason.Security:
+                    key = SmallLockKeyPictute;
+                    break;
+                case DisableReason.Error:
+                    key = SmallRedStopKeyPictute ;
+                    break;
+                case DisableReason.BusinessRule:
+                    key = SmallErrorKeyPictute;
+                    break;
+                default:
+                    break;
+            }
 
-            var key = (dr == DisableReason.Security) ? SmallLockKeyPictute
-                : (dr == DisableReason.Error) ? SmallErrorKeyPictute
-                : SmallRedStopKeyPictute;
+            if (string.IsNullOrEmpty(key))
+                return null;
 
-            var returnValue = Application.Current.FindResource(key);
-
-            return returnValue;
+            return Application.Current.FindResource(key);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)

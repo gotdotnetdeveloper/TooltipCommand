@@ -6,18 +6,27 @@ using System.Windows.Input;
 
 namespace WpfApp
 {
+    /// <summary>
+    /// Расширение TextBlock
+    /// </summary>
     public class TextBlockService
     {
         #region Fields
-
+        /// <summary>
+        /// Автоматически включать тултипы
+        /// </summary>
         public static readonly DependencyProperty AutomaticToolTipEnabledProperty =
             DependencyProperty.RegisterAttached("AutomaticToolTipEnabled", typeof(bool), typeof(TextBlockService),
                                                 new FrameworkPropertyMetadata(true, FrameworkPropertyMetadataOptions.Inherits));
-
+        /// <summary>
+        /// Обрезка текста тултипа
+        /// </summary>
         private static readonly DependencyPropertyKey IsTextTrimmedKey =
             DependencyProperty.RegisterAttachedReadOnly("IsTextTrimmed", typeof(bool), typeof(TextBlockService),
                                                         new PropertyMetadata(false));
-
+        /// <summary>
+        /// Обрезка текста тултипа
+        /// </summary>
         public static readonly DependencyProperty IsTextTrimmedProperty = IsTextTrimmedKey.DependencyProperty;
 
         #endregion
@@ -26,12 +35,6 @@ namespace WpfApp
 
         static TextBlockService()
         {
-            // Register for the SizeChanged event on all TextBlocks, even if the event was handled.
-            //EventManager.RegisterClassHandler(
-            //	typeof (TextBlock),
-            //	FrameworkElement.SizeChangedEvent,
-            //	new SizeChangedEventHandler(OnTextBlockSizeChanged),
-            //	true);
 
             EventManager.RegisterClassHandler(
                 typeof(TextBlock),
@@ -44,22 +47,30 @@ namespace WpfApp
 
         #region Methods
 
+        /// <summary>
+        /// Атач - проперти для AutomaticToolTipEnabled
+        /// </summary>
         [AttachedPropertyBrowsableForType(typeof(DependencyObject))]
         public static Boolean GetAutomaticToolTipEnabled(DependencyObject element)
         {
             if (null == element)
             {
-                throw new ArgumentNullException("element");
+                throw new ArgumentNullException(nameof(element));
             }
             return (bool)element.GetValue(AutomaticToolTipEnabledProperty);
         }
-
+        /// <summary>
+        /// Атач - проперти для IsTextTrimmed
+        /// </summary>
         [AttachedPropertyBrowsableForType(typeof(TextBlock))]
         public static Boolean GetIsTextTrimmed(TextBlock target)
         {
             return (Boolean)target.GetValue(IsTextTrimmedProperty);
         }
 
+        /// <summary>
+        /// Событие при наведении мышки
+        /// </summary>
         private static void OnTextBlockMouseEnter(object sender, MouseEventArgs e)
         {
             var textBlock = sender as TextBlock;
@@ -71,31 +82,10 @@ namespace WpfApp
             SetIsTextTrimmed(textBlock, TextTrimming.None != textBlock.TextTrimming && CalculateIsTextTrimmed(textBlock));
         }
 
-        /*
-		private static void OnTextBlockSizeChanged(object sender, SizeChangedEventArgs e)
-		{
-			var textBlock = sender as TextBlock;
-			if (null == textBlock)
-			{
-				return;
-			}
 
-			SetIsTextTrimmed(textBlock, TextTrimming.None != textBlock.TextTrimming && CalculateIsTextTrimmed(textBlock));
-		}
-		*/
-
-        /*
-		private static void OnTextMediatorChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
-		{
-			if (!_inBindingOperation)
-			{
-				var textBlock = d as TextBlock;
-				if (textBlock != null)
-					SetIsTextTrimmed(textBlock, TextTrimming.None != textBlock.TextTrimming && CalculateIsTextTrimmed(textBlock));
-			}
-		}
-		*/
-
+        /// <summary>
+        /// Установка свойства AutomaticToolTipEnabled
+        /// </summary>
         public static void SetAutomaticToolTipEnabled(DependencyObject element, bool value)
         {
             if (null == element)
@@ -105,48 +95,25 @@ namespace WpfApp
             element.SetValue(AutomaticToolTipEnabledProperty, value);
         }
 
+        /// <summary>
+        /// Вычислить, что нужено обрезать текст тултипа.
+        /// </summary>
+        /// <param name="textBlock">Целевой текстблок</param>
+        /// <returns>Результат вычисления</returns>
         private static bool CalculateIsTextTrimmed(TextBlock textBlock)
         {
-            /*
-			if (!textBlock.IsArrangeValid)
-			{
-				return GetIsTextTrimmed(textBlock);
-			}
-			*/
-            //var txt = textBlock.Text;
             if (!textBlock.Inlines.Any()/*string.IsNullOrEmpty(txt)*/)
                 return false;
 
             textBlock.Measure(new Size(Double.PositiveInfinity, Double.PositiveInfinity));
 
             return textBlock.DesiredSize.Width - textBlock.ActualWidth > -0.3;
-
-            /*
-			var typeface = new Typeface(
-				textBlock.FontFamily,
-				textBlock.FontStyle,
-				textBlock.FontWeight,
-				textBlock.FontStretch);
-
-			// FormattedText is used to measure the whole width of the text held up by TextBlock container
-			var formattedText = new FormattedText(
-				textBlock.Text,
-				System.Threading.Thread.CurrentThread.CurrentCulture,
-				textBlock.FlowDirection,
-				typeface,
-				textBlock.FontSize,
-				textBlock.Foreground) {
-					MaxTextWidth = textBlock.ActualWidth
-				};
-
-			// When the maximum text width of the FormattedText instance is set to the actual
-			// width of the textBlock, if the textBlock is being trimmed to fit then the formatted
-			// text will report a larger height than the textBlock. Should work whether the
-			// textBlock is single or multi-line.
-			return (formattedText.Height > textBlock.ActualHeight);
-			*/
         }
-
+        /// <summary>
+        /// Установка текст тултипа.
+        /// </summary>
+        /// <param name="target">текст блок</param>
+        /// <param name="value"></param>
         private static void SetIsTextTrimmed(TextBlock target, Boolean value)
         {
             target.SetValue(IsTextTrimmedKey, value);

@@ -6,6 +6,9 @@ using ToolTipCommand;
 
 namespace WpfApp
 {
+    /// <summary>
+    /// Сборка тултипа из заданного тултипа и из за причины блокировки
+    /// </summary>
     public class DisableControlTooltipConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)

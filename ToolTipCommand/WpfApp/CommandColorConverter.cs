@@ -5,6 +5,9 @@ using ToolTipCommand;
 
 namespace WpfApp
 {
+    /// <summary>
+    /// Определить цвет по DisableReason
+    /// </summary>
     public class CommandColorConverter : IValueConverter
     {
         #region Implementation of IValueConverter

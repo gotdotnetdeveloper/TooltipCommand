@@ -16,10 +16,10 @@ namespace WpfApp
 
         private bool CanExecuteSaveEmployeesMethod(CanExecuteInfo info, string obj)
         {
-            
-            return info.EnableIf(!string.IsNullOrEmpty(Test), "должно быть не пусто")
-                   && info.EnableIf(Test.Length > 1, "должно быть Length > 1")
-                   && info.EnableIf(Test.Length > 2, "должно быть Length > 2");
+            return info.EnableIf(!string.IsNullOrEmpty(Test),DisableReason.None, "должно быть не пусто")
+                   && info.EnableIf(Test.Length > 1, DisableReason.Error, "должно быть Length > 1")
+                   && info.EnableIf(Test.Length > 2, DisableReason.BusinessRule, "должно быть Length > 2")
+                   && info.EnableIf(Test.Length > 3, DisableReason.Security, "должно быть Length > 2");
         }
 
         private void SaveEmployeesMethod(string obj)
@@ -55,14 +55,5 @@ namespace WpfApp
         }
 
 
-        //public void SaveEmployeesMethod()
-        //{
-        //    Messenger.Default.Send<NotificationMessage>(new NotificationMessage("Employees Saved."));
-        //}
-
-        private void LoadEmployeesMethod()
-        {
-
-        }
     }
 }

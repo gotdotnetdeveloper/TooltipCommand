@@ -5,19 +5,13 @@ namespace ToolTipCommand
     /// <summary>Контекст команды для CanExecute</summary>
     public class CanExecuteInfo
     {
-        #region Приватные свойства
-        private readonly ICommand _command;
-        private DisableReason _disableReason;
-        #endregion
-
-
         /// <summary>
         /// Конструктор CanExecuteInfo
         /// </summary>
         /// <param name="command"> Команда</param>
         internal CanExecuteInfo(ICommand command)
         {
-            _command = command;
+            Command = command;
         }
 
         #region Публичные свойства
@@ -25,19 +19,10 @@ namespace ToolTipCommand
         public string DisableReasonTip { get; set; }
 
         /// <summary>Причина недоступности</summary>
-        public DisableReason DisableReason
-        {
-            get
-            {
-                if (string.IsNullOrWhiteSpace(DisableReasonTip) || _disableReason != DisableReason.None)
-                    return _disableReason;
-                return DisableReason.BusinessRule;
-            }
-            set => _disableReason = value;
-        }
+        public DisableReason DisableReason { get; set; }
 
         /// <summary>Обрабатываемая команда</summary>
-        public ICommand Command => _command;
+        public ICommand Command { get; }
 
         /// <summary>Команда резрешена, если выполняется условие condition</summary>
         /// <param name="condition">Условие</param>
@@ -59,14 +44,14 @@ namespace ToolTipCommand
         /// <returns>true = Если команда разрешена. false =  Если команда запрещена</returns>
         public bool EnableIf(bool condition, string disableReasonTip)
         {
-            return EnableIf(condition, DisableReason.BusinessRule, disableReasonTip);
+            return EnableIf(condition, DisableReason.Error, disableReasonTip);
         }
 
         /// <summary>Блокировать команду  </summary>
         /// <param name="disableReasonTip">Текстовая причина</param>
         public bool Disable(string disableReasonTip)
         {
-            return Disable(DisableReason.BusinessRule, disableReasonTip);
+            return Disable(DisableReason.Error, disableReasonTip);
         }
 
         /// <summary>
@@ -77,7 +62,7 @@ namespace ToolTipCommand
         /// <returns>всегда false</returns>
         public bool Disable(DisableReason disableReason, string disableReasonTip)
         {
-            DisableReason = DisableReason.BusinessRule;
+            DisableReason = DisableReason.Error;
             DisableReasonTip = disableReasonTip;
             return false;
         }
