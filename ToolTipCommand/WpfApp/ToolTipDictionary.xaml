@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WpfApp">
+                    xmlns:local="clr-namespace:WpfApp"
+                    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation">
 
     <local:DisableMarkImageConverter x:Key="disableMarkImageConverter"/>
     <local:DisableControlTooltipConverter x:Key="disableControlTooltipConverter"/>
@@ -356,5 +357,71 @@
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+    </Style>
+
+
+
+    <!--RadPathButton -->
+    <Style x:Key="DisableReasonRadPathButtonContentStyle" TargetType="ContentControl">
+        <Setter Property="Margin" Value="0"/>
+        <Setter Property="IsTabStop" Value="False"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ContentControl">
+                    <Grid ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000">
+                        <Grid.ToolTip>
+                            <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                                <!-- DisableReasonToolTipStyle -->
+                                <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}" />
+                                <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                                <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}"/>
+                                <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}"/>
+                                <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                            </MultiBinding>
+                        </Grid.ToolTip>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <ContentPresenter Content="{TemplateBinding Content}" 
+                                              Grid.Column="0" HorizontalAlignment="Center" />
+                        <Image Name="PART_DisableReason" Grid.Column="1" Margin="3,0,0,0">
+                            <Image.Style>
+                                <Style TargetType="Image">
+                                    <Setter Property="MaxHeight" Value="14"/>
+                                    <Setter Property="MaxWidth" Value="14"/>
+                                    <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+                                    <Setter Property="ToolTipService.ShowDuration" Value="60000"/>
+                                </Style>
+                            </Image.Style>
+                            <Image.Source>
+                                <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                                <Binding Converter="{StaticResource disableMarkImageConverter}"
+                                     RelativeSource="{RelativeSource FindAncestor, AncestorType=telerik:RadPathButton}"
+                                     Path="Command.DisableReason" />
+                            </Image.Source>
+                        </Image>
+
+
+                    </Grid>
+
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="RadPathButtonWithDisableReasonContentTemplate">
+        <ContentControl Style="{StaticResource DisableReasonRadPathButtonContentStyle}">
+            <ContentPresenter HorizontalAlignment="Center" Content="{TemplateBinding Content}" />
+        </ContentControl>
+    </DataTemplate>
+
+    <Style x:Key="Buttons_RadPathButton" TargetType="telerik:RadPathButton" >
+        <!--<Setter Property="ContentTemplate" Value="{StaticResource RadPathButtonWithDisableReasonContentTemplate}"/>-->
+
+        <Setter Property="ToolTipService.ShowOnDisabled" Value="True"/>
+        <Setter Property="ToolTipService.ShowDuration" Value="60000"/>
+       
     </Style>
 </ResourceDictionary>

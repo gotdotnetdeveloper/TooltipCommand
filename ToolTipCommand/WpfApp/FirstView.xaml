@@ -5,6 +5,7 @@
              
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:wpfApp="clr-namespace:WpfApp"
+             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DataContext="{d:DesignInstance wpfApp:FirstViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -27,7 +28,7 @@
         <!--Style="{StaticResource DisableReasonButtonContentStyle}"-->
         <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Center">
             <TextBox Height="20" Text="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <Button Height="20" ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000"
+            <!--<Button Height="20" ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000"
                     Command="{Binding SaveEmployeesCommand}">
                 <Button.ToolTip>
                     <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource TooltipConverter}" >
@@ -39,7 +40,7 @@
 
           
             <Button Height="20" Style="{StaticResource Buttons_Button}"
-                    ToolTip="Это тултип"
+                    ToolTip="OriginalTooltip"
                     Command="{Binding SaveEmployeesCommand}">
                 Биндинг DisableReasonTip через стиль
             </Button>
@@ -63,9 +64,34 @@
                     <Path Data="{StaticResource PinGeometry}" Style="{StaticResource RadPathButtonPathNormalStyle}" 
                          Fill="{Binding Path=SaveEmployeesCommand.DisableReason, Converter={StaticResource CommandColorConverter}}"  />
                 </ToggleButton.Content>
-            </ToggleButton>
-            <!--Fill ="{Binding Path=SaveEmployeesCommand.DisableReason, Converter={StaticResource CommandColorConverter}}"-->
+            </ToggleButton>-->
 
-</StackPanel>
+
+            <telerik:RadPathButton
+                Height="33"
+                Width="33"
+                x:Name="BtnSettings"
+                Command="{Binding SaveEmployeesCommand}"
+                PathGeometry="{StaticResource PinGeometry}"
+                Style="{StaticResource Buttons_RadPathButton}" >
+
+                <telerik:RadPathButton.ToolTip>
+                <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
+                    <!-- DisableReasonToolTipStyle -->
+                    <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}" />
+                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
+                    <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}"/>
+                    <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}"/>
+                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
+                </MultiBinding>
+                </telerik:RadPathButton.ToolTip>
+              
+
+            </telerik:RadPathButton>
+
+            
+
+
+        </StackPanel>
     </Grid>
 </UserControl>
