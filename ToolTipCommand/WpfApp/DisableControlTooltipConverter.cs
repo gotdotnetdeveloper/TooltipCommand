@@ -64,21 +64,76 @@ namespace WpfApp
 
 
 
-    public class TooltipConverter : IMultiValueConverter
+    public class MultiTooltipConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            if (values != null && values.Length == 1 && values[0] != null)
+            TooltipWithDisableReason drt = null;
+            if (values == null || values.Length == 0)
+                return parameter;
+
+            if(values.Length >= 2)
             {
-                if (values[0] is string text)
+                if (values[0] is DisableReason disableReason)
                 {
-                    return text;
+                    drt = new TooltipWithDisableReason();
+                    drt.DisableReason = disableReason;
+                }
+
+                if (values[1] is string s && !string.IsNullOrEmpty(s) )
+                {
+                    if (drt == null)
+                        drt = new TooltipWithDisableReason();
+                    drt.DisableReasonTip = s;
+                }
+
+                // исходный тултип
+                if (parameter is string originalToolTip)
+                {
+                    if (drt == null)
+                        drt = new TooltipWithDisableReason();
+                    drt.OriginalTooltip = originalToolTip;
                 }
             }
-            return null;
+            return drt; 
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// Конвертер Tooltip
+    /// </summary>
+    public class TooltipConverter : IValueConverter
+    {
+        /// <summary>
+        /// Получить текст тултипа 
+        /// </summary>
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is string || parameter is string)
+            {
+                var drt = new TooltipWithDisableReason();
+
+                if (value is string stringValue)
+                {
+                    drt.DisableReasonTip = stringValue;
+                }
+                if (parameter is string stringParameter && !string.IsNullOrEmpty(stringParameter))
+                {
+                    drt.OriginalTooltip = stringParameter;
+                }
+
+                return drt;
+            }
+
+            return null;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

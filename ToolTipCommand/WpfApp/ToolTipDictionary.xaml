@@ -5,6 +5,7 @@
 
     <local:DisableMarkImageConverter x:Key="disableMarkImageConverter"/>
     <local:DisableControlTooltipConverter x:Key="disableControlTooltipConverter"/>
+    <local:MultiTooltipConverter x:Key="MultiTooltipConverter"/>
     <local:TooltipConverter x:Key="TooltipConverter"/>
     <local:CommandColorConverter x:Key="CommandColorConverter"/>
 

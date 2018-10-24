@@ -36,7 +36,7 @@
                     </MultiBinding>
                 </Button.ToolTip>
                 Биндинг DisableReasonTip непосредственно в кнопку
-            </Button>
+            </Button>-->
 
           
             <Button Height="20" Style="{StaticResource Buttons_Button}"
@@ -45,7 +45,7 @@
                 Биндинг DisableReasonTip через стиль
             </Button>
 
-            <ToggleButton x:Name="btnSimpleРазместить" ToolTipService.ShowOnDisabled="True"  ToolTipService.ShowDuration="60000"
+            <!--<ToggleButton x:Name="btnSimpleРазместить" ToolTipService.ShowOnDisabled="True"  ToolTipService.ShowDuration="60000"
                           IsChecked="{Binding IsLocator}" Command="{Binding SaveEmployeesCommand}" Style="{StaticResource Buttons_ToggleButton}">
                Simple ToggleButton
             </ToggleButton>
@@ -67,29 +67,37 @@
             </ToggleButton>-->
 
 
-            <telerik:RadPathButton
-                Height="33"
-                Width="33"
-                x:Name="BtnSettings"
-                Command="{Binding SaveEmployeesCommand}"
-                PathGeometry="{StaticResource PinGeometry}"
-                Style="{StaticResource Buttons_RadPathButton}" >
 
-                <telerik:RadPathButton.ToolTip>
-                <MultiBinding Converter="{StaticResource disableControlTooltipConverter}">
-                    <!-- DisableReasonToolTipStyle -->
-                    <Binding Path="ToolTip" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}" />
-                    <!-- ReSharper disable Xaml.BindingWithContextNotResolved -->
-                    <Binding Path="Command.DisableReason" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}"/>
-                    <Binding Path="Command.DisableReasonTip" RelativeSource="{RelativeSource AncestorType=telerik:RadPathButton, Mode=FindAncestor}"/>
-                    <!-- ReSharper restore Xaml.BindingWithContextNotResolved -->
-                </MultiBinding>
-                </telerik:RadPathButton.ToolTip>
-              
+            <telerik:RadPathButton
+            Height="33"
+            Width="33"
+            x:Name="BtnSettings"
+            Command="{Binding SaveEmployeesCommand}"
+            PathGeometry="{StaticResource PinGeometry}"
+            ToolTipService.ShowOnDisabled="True"
+            ToolTipService.ShowDuration="60000"
+            ToolTip="{Binding Path=SaveEmployeesCommand.DisableReasonTip, Converter={StaticResource TooltipConverter}, ConverterParameter='Текст команды' }" >
+                
 
             </telerik:RadPathButton>
 
-            
+            <telerik:RadPathButton
+            Height="33"
+            Width="33"
+            x:Name="BtnSettings2"
+            Command="{Binding SaveEmployeesCommand}"
+            PathGeometry="{StaticResource PinGeometry}"
+            ToolTipService.ShowOnDisabled="True"
+            ToolTipService.ShowDuration="60000">
+                <telerik:RadPathButton.ToolTip>
+                    <MultiBinding Converter="{StaticResource MultiTooltipConverter}" ConverterParameter ="оригинальный тултип">
+                        <Binding Path="SaveEmployeesCommand.DisableReason" />
+                        <Binding Path="SaveEmployeesCommand.DisableReasonTip" />
+                    </MultiBinding>
+</telerik:RadPathButton.ToolTip>
+                
+
+            </telerik:RadPathButton>
 
 
         </StackPanel>
