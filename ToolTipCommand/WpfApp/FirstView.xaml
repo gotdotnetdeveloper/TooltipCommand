@@ -2,10 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:wpfApp="clr-namespace:WpfApp"
-             xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
              d:DataContext="{d:DesignInstance wpfApp:FirstViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -28,15 +26,7 @@
         <!--Style="{StaticResource DisableReasonButtonContentStyle}"-->
         <StackPanel Orientation="Vertical" Margin="10" VerticalAlignment="Center">
             <TextBox Height="20" Text="{Binding Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
-            <!--<Button Height="20" ToolTipService.ShowOnDisabled="True" ToolTipService.ShowDuration="60000"
-                    Command="{Binding SaveEmployeesCommand}">
-                <Button.ToolTip>
-                    <MultiBinding UpdateSourceTrigger="PropertyChanged" Converter="{StaticResource TooltipConverter}" >
-                        <Binding Path="SaveEmployeesCommand.DisableReasonTip"   />
-                    </MultiBinding>
-                </Button.ToolTip>
-                Биндинг DisableReasonTip непосредственно в кнопку
-            </Button>-->
+    
 
           
             <Button Height="20" Style="{StaticResource Buttons_Button}"
@@ -45,7 +35,7 @@
                 Биндинг DisableReasonTip через стиль
             </Button>
 
-            <!--<ToggleButton x:Name="btnSimpleРазместить" ToolTipService.ShowOnDisabled="True"  ToolTipService.ShowDuration="60000"
+            <ToggleButton x:Name="btnSimpleРазместить" ToolTipService.ShowOnDisabled="True"  ToolTipService.ShowDuration="60000"
                           IsChecked="{Binding IsLocator}" Command="{Binding SaveEmployeesCommand}" Style="{StaticResource Buttons_ToggleButton}">
                Simple ToggleButton
             </ToggleButton>
@@ -64,40 +54,10 @@
                     <Path Data="{StaticResource PinGeometry}" Style="{StaticResource RadPathButtonPathNormalStyle}" 
                          Fill="{Binding Path=SaveEmployeesCommand.DisableReason, Converter={StaticResource CommandColorConverter}}"  />
                 </ToggleButton.Content>
-            </ToggleButton>-->
+            </ToggleButton>
 
 
-
-            <telerik:RadPathButton
-            Height="33"
-            Width="33"
-            x:Name="BtnSettings"
-            Command="{Binding SaveEmployeesCommand}"
-            PathGeometry="{StaticResource PinGeometry}"
-            ToolTipService.ShowOnDisabled="True"
-            ToolTipService.ShowDuration="60000"
-            ToolTip="{Binding Path=SaveEmployeesCommand.DisableReasonTip, Converter={StaticResource TooltipConverter}, ConverterParameter='Текст команды' }" >
-                
-
-            </telerik:RadPathButton>
-
-            <telerik:RadPathButton
-            Height="33"
-            Width="33"
-            x:Name="BtnSettings2"
-            Command="{Binding SaveEmployeesCommand}"
-            PathGeometry="{StaticResource PinGeometry}"
-            ToolTipService.ShowOnDisabled="True"
-            ToolTipService.ShowDuration="60000">
-                <telerik:RadPathButton.ToolTip>
-                    <MultiBinding Converter="{StaticResource MultiTooltipConverter}" ConverterParameter ="оригинальный тултип">
-                        <Binding Path="SaveEmployeesCommand.DisableReason" />
-                        <Binding Path="SaveEmployeesCommand.DisableReasonTip" />
-                    </MultiBinding>
-</telerik:RadPathButton.ToolTip>
-                
-
-            </telerik:RadPathButton>
+      
 
 
         </StackPanel>
